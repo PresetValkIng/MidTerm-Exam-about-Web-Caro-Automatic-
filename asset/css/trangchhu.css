@@ -34,9 +34,9 @@ form {
 /* Hiệu ứng khi hover */
 .square:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    background-color: #144575; /* Màu nền khi hover */
-    color: #007bff; /* Màu chữ khi hover */
+    box-shadow: 0 6px 12px rgba(164, 66, 66, 0.15);
+    background-color: #0378ed; /* Màu nền khi hover */
+    color: #da2020; /* Màu chữ khi hover */
 }
 
 /* Style riêng cho dropdown */
