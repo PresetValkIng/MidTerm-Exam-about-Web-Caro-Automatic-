@@ -1,99 +1,84 @@
 <!DOCTYPE html>
-<html lang="vi"> <!-- Thay đổi từ 'en' sang 'vi' cho phù hợp với ngôn ngữ tiếng Việt -->
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MidTerm Exam - Cờ Caro</title>
+    <link rel="stylesheet" href="asset/css/trangchhu.css"/>
+    <title> Game cờ Caro của tam thái tử </title>
     <style>
-        body{
+      body {
             background-image: url(asset/Images/anh.jpg);
-            background-size:cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            background-size: contain;
         }
-    
-        /* Style cho tiêu đề chính */
-        h1 {
-            color: #ae1020;
-            margin: 20px 0;
-            font-size: 2.5em;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        /* Style cho tiêu đề phụ */
-        h3 {
-            color: #7f8c8d;
-            font-style: italic;
-            margin-bottom: 5px;
-        }
-
-        /* Style chung cho các ô lựa chọn */
-        .option-container {
-            background-color: rgb(17, 8, 75);
-            background-color: rgb(255, 255, 255);
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin: 15px 0;
-            width: 80%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        /* Style cho dropdown chọn kích thước */
-        select {
-            padding: 8px 15px;
-            border: 1px solid #be2929;
-            border: 1px solid #be7a7a;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-top: 10px;
-            width: 150px;
-        }
-
-        /* Style khi hover vào các ô lựa chọn */
-        .option-container:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-
-        /* Style cho tiêu đề các ô lựa chọn */
-        .option-title {
-            color: #548e16;
-            color: #004fe2;
-
-            margin-bottom: 10px;
-        }
+        
+      .mode-selection {
+        display: none; /* Ẩn ban đầu */
+        margin-top: 10px;
+      }
+      
+      .mode-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
     </style>
 </head>
 <body>
-    <h3><i>Cài đặt</i></h3>
-    <h1>CỜ CARO</h1>
-    
-    <form action="" method="post">
-        <div class="option-container">
-            <h2 class="option-title">Chọn Kích Thước Bàn</h2>
-            <select name="selSize">
-                <option value="15x15">15x15</option>
-                <option value="19x19" selected>19x19</option>
-            </select>
-        </div>
-    </form>  
-    
-    <div class="option-container">
-        <h2 class="option-title">Chơi Với Người</h2>
-    </div>
-    
-    <div class="option-container">
-        <h2 class="option-title">Chơi Với Máy</h2>
-    </div>
-    
-    <div class="option-container">
-        <h2 class="option-title">Bảng Xếp Hạng</h2>
-    </div>
+     <h3><i>Cài đặt</i></h3>
+     <h1>CỜ CARO</h1>
+
+     <div class="square" id="startGame">
+       <h2 id="startBtn"> Bắt Đầu </h2>
+       <form action="" method="post">
+         <select id="boardSize">
+           <option selected> Chọn kích thước </option>
+           <option value="15x15">15x15</option>
+           <option value="19x19">19x19</option>
+         </select>
+       </form>
+       
+       <!-- Phần chọn chế độ chơi -->
+       <div class="mode-selection" id="modeSelection">
+         <button class="mode-btn" id="playWithHuman">Chơi Với Người 👨‍👧‍👧</button>
+         <button class="mode-btn" id="playWithComputer">Chơi Với Máy 🖥️</button>
+       </div>
+     </div>
+
+     <h2 class="square">Bảng Xếp Hạng 🏆</h2>
+     
+     <script>
+       // Lấy các phần tử DOM
+       const startBtn = document.getElementById('startBtn');
+       const modeSelection = document.getElementById('modeSelection');
+       const boardSize = document.getElementById('boardSize');
+       
+       // Xử lý sự kiện khi nhấn Bắt Đầu
+       startBtn.addEventListener('click', function() {
+         // Kiểm tra đã chọn kích thước bàn chưa
+         if(boardSize.selectedIndex === 0) {
+           alert('Vui lòng chọn kích thước bàn trước!');
+           return;
+         }
+         
+         // Hiển thị lựa chọn chế độ chơi
+         modeSelection.style.display = 'block';
+       });
+       
+       // Xử lý khi chọn chơi với người
+       document.getElementById('playWithHuman').addEventListener('click', function() {
+         alert('Bạn đã chọn chơi với người, kích thước: ' + boardSize.value);
+         // Thêm code xử lý bắt đầu game ở đây
+       });
+       
+       // Xử lý khi chọn chơi với máy
+       document.getElementById('playWithComputer').addEventListener('click', function() {
+         alert('Bạn đã chọn chơi với máy, kích thước: ' + boardSize.value);
+         // Thêm code xử lý bắt đầu game ở đây
+       });
+     </script>
 </body>
 </html>
