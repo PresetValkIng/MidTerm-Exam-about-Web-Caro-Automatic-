@@ -26,7 +26,7 @@ form {
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 15px; /* Thêm padding để dễ hover */
-    background-color: #f8f9fa; /* Màu nền mặc định */
+    background-color: #0e467e; /* Màu nền mặc định */
     transition: all 0.3s ease; /* Hiệu ứng mượt mà */
     cursor: pointer; /* Đổi con trỏ thành bàn tay */
 }
@@ -42,7 +42,7 @@ form {
 /* Style riêng cho dropdown */
 select {
     padding: 8px 15px;
-    border: 1px solid #ced4da;
+    border: 1px solid #f8fbfd;
     border-radius: 5px;
     font-size: 16px;
     margin-top: 10px;
