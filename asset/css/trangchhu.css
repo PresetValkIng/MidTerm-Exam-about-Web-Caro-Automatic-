@@ -1,24 +1,36 @@
 @charset "utf-8";
-body{
+body
+{
         background-image: url;
         font-family: 'Times New Roman', Times, serif;
 }
-h2,h1 {
+h2,h1 
+{
         text-align: center;
 }
-h3 {
+h3 
+{
     color:blue;
     text-align: right;
 }
-form {
+form 
+{
     justify-content: center;
     display: flex;
     border:none;
 }
-.square {
+.square
+ {
     text-align: center; /* Căn giữa nội dung */
     margin: 10px auto; /* Căn giữa khối */
     width: 50%; /* Đặt chiều rộng để có thể căn giữa */
     border-radius: 20px; /* Bo góc mềm mại */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thêm bóng để tăng chiều sâu */
+}
+.square:hoper {
+ 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        
 }
