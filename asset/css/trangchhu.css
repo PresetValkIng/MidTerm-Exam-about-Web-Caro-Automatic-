@@ -1,36 +1,52 @@
 @charset "utf-8";
-body
-{
-        background-image: url;
-        font-family: 'Times New Roman', Times, serif;
+body {
+    background-image: url;
+    font-family: 'Times New Roman', Times, serif;
 }
-h2,h1 
-{
-        text-align: center;
+h2, h1 {
+    text-align: center;
 }
-h3 
-{
-    color:blue;
+h3 {
+    color: blue;
     text-align: right;
 }
-form 
-{
+form {
     justify-content: center;
     display: flex;
-    border:none;
+    border: none;
 }
-.square
- {
-    text-align: center; /* Căn giữa nội dung */
-    margin: 10px auto; /* Căn giữa khối */
-    width: 50%; /* Đặt chiều rộng để có thể căn giữa */
-    border-radius: 20px; /* Bo góc mềm mại */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thêm bóng để tăng chiều sâu */
+.square {
+    text-align: center;
+    margin: 10px auto;
+    width: 50%;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 15px; /* Thêm padding để dễ hover */
+    background-color: #f8f9fa; /* Màu nền mặc định */
+    transition: all 0.3s ease; /* Hiệu ứng mượt mà */
+    cursor: pointer; /* Đổi con trỏ thành bàn tay */
 }
-.square:hoper {
- 
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        
+
+/* Hiệu ứng khi hover */
+.square:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background-color: #e9ecef; /* Màu nền khi hover */
+    color: #007bff; /* Màu chữ khi hover */
+}
+
+/* Style riêng cho dropdown */
+select {
+    padding: 8px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer; /* Đổi con trỏ khi hover vào select */
+    transition: all 0.2s ease;
+}
+
+select:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
