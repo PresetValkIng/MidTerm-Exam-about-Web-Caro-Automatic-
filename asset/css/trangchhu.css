@@ -1,16 +1,17 @@
+@charset "utf-8";
 body{
          background-image: url;
-            
+        color:rgb(rgb(101, 111, 28), rgb(73, 121, 156), rgb(122, 32, 48));
+        font-family: 'Times New Roman', Times, serif;
     }
 h2,h1 {
         text-align: center;
-
     }
 h3 {
+    color:blue;
     text-align: right;
 }
 form {
-    text-align: center;
-    justify-items: center;
+    justify-content: center;
     display: flex;
 }
