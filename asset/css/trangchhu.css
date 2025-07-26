@@ -12,7 +12,7 @@ h2 {
 }
 h3 {
     color: red;
-    text-align: right;
+    text-align: center;
 }
 form {
     justify-content: center;
@@ -42,7 +42,7 @@ form {
 /* Style riêng cho dropdown */
 select {
     padding: 8px 15px;
-    border: 1px solid #f8fbfd;
+    border: 1px solid #0088e3;
     border-radius: 5px;
     font-size: 16px;
     margin-top: 10px;
@@ -51,6 +51,38 @@ select {
 }
 
 select:hover {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    border-color: #1a52cb;
+    box-shadow: 0 0 0 0.2rem rgba(241, 73, 179, 0.25);
 }
+input[type="text"] {
+        width: 250px;
+        padding: 12px 20px;
+        margin: 20px 0;
+        border: 2px solid #ccc;
+        border-radius: 25px;
+        font-size: 16px;
+        text-align: center;
+        outline: none;
+      }
+.options-panel{
+        display: none; /*Ẩn giao diện khi bình thường*/
+        position: relative; /*để button nó theo khi mình chỉnh sửa*/
+        background-color: rgb(97, 140, 233);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        width: 200px;
+        margin-top: 10px;
+      }
+          
+      /* Style cho nút đóng */
+close-btn {
+       
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 30px;
+        font-weight: bold;
+      }
+      
