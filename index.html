@@ -1,39 +1,91 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="asset/css/trangchhu.css"/>
-    
-    <title> Game cờ Caro của tam thái tử </title>
+    <title>Game cờ Caro của tam thái tử</title>
     <style>
-      body{
+      /* Thiết lập style chung cho toàn bộ trang */
+      body {
             background-image: url(asset/Images/anh.jpg);
             background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
+      
+      
     
     </style>
 </head>
 <body>
-    <h3><i>Cài đặt</i></h3>
-     <h1>CỜ CARO</h1>
+    <!-- Tiêu đề game -->
+    <h1>CỜ CARO</h1>
+    
+    <!-- Ô nhập tên người chơi -->
+    <input type="text" placeholder="NAME">
+    
+    <!-- Nút bắt đầu game -->
+    <div class="square">
+        <form action="" method="post">
+            <h2>Bắt Đầu</h2>
+        </form>
+    </div>
+        <!-- Nút mở panel tùy chọn -->
+        <h2 class="square" id="optionsBtn">Tùy Chọn ⚙️</h2>
+        
+        <!-- Panel tùy chọn -->
+        <div class="options-panel" id="optionsPanel">
+            <!-- Nút đóng panel -->
+            <span class="close-btn" id="closePanelBtn" >  x  </span>
+            
+            <!-- Chọn chế độ chơi -->
+            <h3>Chọn chế độ chơi</h3>
+            <select style="width: 100%; margin-bottom: 10px;">
+                <option value="human">Chơi với người 👨‍👧‍👧</option>
+                <option value="computer">Chơi với máy 🖥️</option>
+            </select>
+            
+            <!-- Chọn kích thước bàn cờ -->
+            <h3>Chọn kích thước bàn cờ</h3>
+            <select style="width: 100%;">
+                <option selected>Chọn kích thước</option>
+                <option value="15x15">15x15</option>
+                <option value="19x19">19x19</option>
+            </select>
+        </div>
+    
 
-       <div class ="square">
-       <h2> Bắt Đầu </h2>
-       <form action="" method="post">
-         <select>
-           <option selected> Chọn kích thước </option>
-           <option value="15x15">15x15</option>
-           <option value="19x19">19x19</option>
-         </select>
-       </form>
-     </div>
+    <!-- Bảng xếp hạng -->
+    <h2 class="square">Bảng Xếp Hạng 🏆</h2>
 
-       <h2 class="square">Chơi Với Người 👨‍👧‍👧</h2>
-       <h2 class="square">Chơi Với Máy 🖥️</h2>
-       <h2 class="square">Bảng Xếp Hạng 🏆</h2>
+    <script>
+        // Lấy các phần tử DOM cần thiết
+        const panel = document.getElementById('optionsPanel')
+        const optionsBtn = document.getElementById('optionsBtn')
+        const closeBtn = document.getElementById('closePanelBtn')
+        
+        // Xử lý giao diện tùy chọn khi click vào nút Tùy Chọn
+        optionsBtn.addEventListener('click', function() {
+            panel.style.display = 'block' //Block = hiện thị
+        })
+        
+        // Xử lý giao diện tùy chọn khi click vào nút đóng
+        closeBtn.addEventListener('click', function() {
+            panel.style.display = 'none' //None = Dấu nó đi
+        })
+        
+        // Xử lý giao diện tùy chọn khi click ra ngoài panel
+        document.addEventListener('click', function(event) {
+            if (!panel.contains(event.target) && event.target !== optionsBtn) {
+                panel.style.display = 'none'
+            }
+        })
+    </script>
 </body>
 </html>
