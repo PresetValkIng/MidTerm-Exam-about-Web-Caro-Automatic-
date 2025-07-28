@@ -1,6 +1,6 @@
 @charset "utf-8";
 body {
-    background-image: url;
+    background-image: url();
     font-family: 'Times New Roman', Times, serif;
 }
  h1 {
@@ -85,7 +85,7 @@ input[type="text"] {
       }
           
     
-close-btn {
+.close-btn {
        
         position: absolute;
         top: 5px;
@@ -94,4 +94,32 @@ close-btn {
         font-size: 30px;
         font-weight: bold;
       }
-      
+
+  /* Giao diện sáng */
+#board.light {
+  background: #eee;
+  border: 2px solid #aaa;
+  padding: 5px;
+}
+
+/* Giao diện tối */
+#board.dark {
+  background: #8e8c8c;
+  border: 2px solid #666;
+  padding: 5px;
+}
+#board.light .x { color: blue; }
+#board.light .o { color: red; }
+
+#board.dark .x { color: cyan; }
+#board.dark .o { color: orange; }
+ .cell {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #aaa;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}

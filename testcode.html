@@ -26,59 +26,36 @@
         cursor: pointer;
       }
     </style>
+    
 </head>
 <body>
      <h3><i>Cài đặt</i></h3>
      <h1>CỜ CARO</h1>
 
-     <div class="square" id="startGame">
-       <h2 id="startBtn"> Bắt Đầu </h2>
-       <form action="" method="post">
-         <select id="boardSize">
-           <option selected> Chọn kích thước </option>
-           <option value="15x15">15x15</option>
-           <option value="19x19">19x19</option>
-         </select>
-       </form>
-       
-       <!-- Phần chọn chế độ chơi -->
-       <div class="mode-selection" id="modeSelection">
-         <button class="mode-btn" id="playWithHuman">Chơi Với Người 👨‍👧‍👧</button>
-         <button class="mode-btn" id="playWithComputer">Chơi Với Máy 🖥️</button>
-       </div>
-     </div>
+     <div class="square">
+      <h3>Chọn kích thước bàn cờ</h3>
+    <select id="boardSize">
+      <option selected>Chọn kích thước</option>
+      <option value="15">15x15</option>
+      <option value="19">19x19</option>
+    </select>
+    <br><br>
+    <button id="startBtn">Bắt đầu</button>
+  </div>
 
-     <h2 class="square">Bảng Xếp Hạng 🏆</h2>
-     
-     <script>
-       // Lấy các phần tử DOM
-       const startBtn = document.getElementById('startBtn');
-       const modeSelection = document.getElementById('modeSelection');
-       const boardSize = document.getElementById('boardSize');
-       
-       // Xử lý sự kiện khi nhấn Bắt Đầu
-       startBtn.addEventListener('click', function() {
-         // Kiểm tra đã chọn kích thước bàn chưa
-         if(boardSize.selectedIndex === 0) {
-           alert('Vui lòng chọn kích thước bàn trước!');
-           return;
-         }
-         
-         // Hiển thị lựa chọn chế độ chơi
-         modeSelection.style.display = 'block';
-       });
-       
-       // Xử lý khi chọn chơi với người
-       document.getElementById('playWithHuman').addEventListener('click', function() {
-         alert('Bạn đã chọn chơi với người, kích thước: ' + boardSize.value);
-         // Thêm code xử lý bắt đầu game ở đây
-       });
-       
-       // Xử lý khi chọn chơi với máy
-       document.getElementById('playWithComputer').addEventListener('click', function() {
-         alert('Bạn đã chọn chơi với máy, kích thước: ' + boardSize.value);
-         // Thêm code xử lý bắt đầu game ở đây
-       });
-     </script>
+  <!-- Chế độ chơi -->
+  <div class="mode-selection" id="modeSelection">
+    <button class="mode-btn" id="playWithHuman">Chơi Với Người 👨‍👧‍👧</button>
+    <button class="mode-btn" id="playWithComputer">Chơi Với Máy 🖥️</button>
+  </div>
+
+  <!-- Nút đổi giao diện -->
+  <button id="themeBtn" style="display:none;">Đổi giao diện</button>
+
+  <!-- Bàn cờ -->
+  <div id="board" class="light"></div>
+
+  <h2 class="square">Bảng Xếp Hạng 🏆</h2>
+     <script src="asset/css/taobanco.js"></script>
 </body>
 </html>
