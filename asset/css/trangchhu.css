@@ -55,6 +55,7 @@ select {
     margin-top: 10px;
     cursor: pointer; /* Đổi con trỏ khi hover vào select */
     transition: all 0.2s ease;
+    text-align: center;
 }
 
 select:hover {
@@ -87,7 +88,7 @@ input[type="text"] {
           width: 300px;
           max-width: 90%;
       }
-          
+    
 .close-btn {
         position: absolute;
         top: 5px;
