@@ -6,6 +6,9 @@ body {
  h1 {
     color: red;
     text-align: center;
+    font-size: 75px;
+    margin-top: 0px;
+    margin-bottom: 30px;
 }
 h2 {
     text-align: center;
@@ -55,12 +58,12 @@ select:hover {
     box-shadow: 0 0 0 0.2rem rgba(20, 114, 255, 0.25);
 }
 input[type="text"] {
-        width: 250px;
-        padding: 12px 20px;
-        margin: 20px 0;
+        width: 350px;
+        padding: 28px 37px; /*12 20*/
+        margin: 30px 0;
         border: 2px solid #ccc;
         border-radius: 25px;
-        font-size: 16px;
+        font-size: 17px;
         text-align: center;
         outline: none;
       }
@@ -81,7 +84,7 @@ input[type="text"] {
           max-width: 90%;
       }
           
-      /* Style cho nút đóng */
+    
 close-btn {
        
         position: absolute;
