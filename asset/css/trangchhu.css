@@ -63,15 +63,10 @@ select:hover {
     border-color: #1a52cb;
     box-shadow: 0 0 0 0.2rem rgba(20, 114, 255, 0.25);
 }
-#gameMode {
+#gameMode, #boardSize {
     display: block; /* Đảm bảo nó là block để margin auto hoạt động */
-    margin: 0 auto; /* Căn giữa */
+    margin: 0 auto;
 }
-#boardSize{
-      display: block; /* Đảm bảo nó là block để margin auto hoạt động */
-    margin: 0 auto; /* Căn giữa */
-}
-
 input[type="text"] {
         width: 350px;
         padding: 28px 37px; /*12 20*/
