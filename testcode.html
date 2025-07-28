@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="asset/css/trangchhu.css"/>
+      <link rel="stylesheet" href="asset/css/trangchhu.css"/>
     <title>Game cờ Caro của tam thái tử</title>
     <style>
-      /* Thiết lập style chung cho toàn bộ trang */
-      body {
+        body {
             background-image: url(asset/Images/anh.jpg);
             background-size: cover;
             display: flex;
@@ -17,60 +16,47 @@
             min-height: 100vh;
             margin: 0;
             padding: 10px;
+            font-family: Arial, sans-serif;
         }
+      
     </style>
 </head>
 <body>
-    <!-- Tiêu đề game -->
-     <h1>CỜ CARO</h1>
+    <h1>CỜ CARO</h1>
     
-    <!-- Ô nhập tên người chơi -->
     <input type="text" id="playerName" placeholder="Nhập tên">
     
-    <!-- Nút bắt đầu game -->
-    <div class="square">
-        <button id="startButton">
-            <h2>Bắt Đầu</h2>
-        </button>
-    </div>
+    <button id="startButton" class="square">Bắt Đầu</button>
     
-    <!-- Nút mở panel tùy chọn -->
-    <h2 class="square" id="optionsBtn">Tùy Chọn ⚙️</h2>
+    <button id="optionsBtn" class="square">Tùy Chọn ⚙️</button>
     
-    <!-- Panel tùy chọn -->
     <div class="options-panel" id="optionsPanel">
-        <!-- Nút đóng panel -->
         <span class="close-btn" id="closePanelBtn">x</span>
         
-        <!-- Chọn chế độ chơi -->
         <h3>Chọn chế độ chơi</h3>
-        <select style="width: 100%; margin-bottom: 10px;">
+        <select id="gameMode">
            <option selected>Chọn chế độ chơi</option>
             <option value="human">Chơi với người 👨‍👧‍👧</option>
             <option value="computer">Chơi với máy 🖥️</option>
         </select>
         
-        <!-- Chọn kích thước bàn cờ -->
         <h3>Chọn kích thước bàn cờ</h3>
-        <select style="width: 100%;">
+        <select id="boardSize">
             <option selected>Chọn kích thước</option>
             <option value="15x15">15x15</option>
             <option value="19x19">19x19</option>
         </select>
     </div>
     
-    <!-- Bảng xếp hạng -->
     <div class="leaderboard">
         <h2>Bảng Xếp Hạng 🏆</h2>
-        <ol id="leaderboardList">
-            <!-- Danh sách người chơi sẽ được thêm vào đây -->
-        </ol>
+        <ol id="leaderboardList"></ol>
     </div>
 
     <script>
         // Lấy các phần tử từ DOM
         const panel = document.getElementById('optionsPanel');
-        const button = document.getElementById('optionsBtn');
+        const optionsBtn = document.getElementById('optionsBtn');
         const closeBtn = document.getElementById('closePanelBtn');
         const startButton = document.getElementById('startButton');
         const playerNameInput = document.getElementById('playerName');
@@ -80,62 +66,55 @@
         let players = JSON.parse(localStorage.getItem('caroPlayers')) || [];
         
         // Hiển thị danh sách người chơi khi trang được tải
-        function displayLeaderboard() {
-            leaderboardList.innerHTML = '';
-            players.forEach((player, index) => {
-                const li = document.createElement('li');
-                li.textContent = `${index + 1}. ${player.name}`;
-                leaderboardList.appendChild(li);
-            });
-        }
+        displayLeaderboard();
         
-        // Xử lý khi nhấn nút Bắt Đầu
+        // Khi nhấn nút Bắt Đầu
         startButton.addEventListener('click', function() {
-            const playerName = playerNameInput.value.trim();
+            const name = playerNameInput.value.trim();
             
-            if (playerName) {
-                // Kiểm tra xem người chơi đã tồn tại chưa
-                const existingPlayerIndex = players.findIndex(p => p.name.toLowerCase() === playerName.toLowerCase());
-                
-                if (existingPlayerIndex === -1) {
-                    // Thêm người chơi mới
-                    players.push({ name: playerName, score: 0 });
-                }
+            if (name === '') {
+                alert('Vui lòng nhập tên!');
+                return;
+            }
+            
+            // Kiểm tra xem người chơi đã tồn tại chưa
+            const existingPlayer = players.find(player => player.name.toLowerCase() === name.toLowerCase());
+            
+            if (!existingPlayer) {
+                // Thêm người chơi mới
+                players.push({ name: name, score: 0 });
                 
                 // Lưu vào localStorage
                 localStorage.setItem('caroPlayers', JSON.stringify(players));
                 
                 // Cập nhật bảng xếp hạng
                 displayLeaderboard();
-                
-                // Reset input
-                playerNameInput.value = '';
-                
-                alert(`Chào mừng ${playerName} đến với game Cờ Caro!`);
-            } else {
-                alert('Vui lòng nhập tên của bạn!');
             }
+            
+            playerNameInput.value = '';
+            alert('Chào mừng ' + name + ' đến với game Cờ Caro!');
         });
         
-        // Xử lý giao diện tùy chọn khi click vào nút Tùy Chọn
-        button.addEventListener('click', function() { 
-            panel.style.display = 'block'; 
-        });
+        // Hiển thị bảng xếp hạng
+        function displayLeaderboard() {
+            leaderboardList.innerHTML = '';
+            players.forEach((player, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${index + 1}. ${player.name} - ${player.score} điểm`;
+                leaderboardList.appendChild(li);
+            });
+        }
         
-        // Xử lý giao diện tùy chọn khi click vào nút đóng
-        closeBtn.addEventListener('click', function() { 
-            panel.style.display = 'none'; 
-        });
+        // Xử lý mở/đóng panel tùy chọn
+        optionsBtn.addEventListener('click', () => panel.style.display = 'block');
+        closeBtn.addEventListener('click', () => panel.style.display = 'none');
         
-        // Xử lý giao diện tùy chọn khi click ra ngoài panel
-        document.addEventListener('click', function(event) {
-            if (!panel.contains(event.target) && event.target !== button) {
+        // Đóng panel khi click bên ngoài
+        document.addEventListener('click', (event) => {
+            if (!panel.contains(event.target) && event.target !== optionsBtn) {
                 panel.style.display = 'none';
             }
         });
-        
-        // Hiển thị bảng xếp hạng khi trang được tải
-        displayLeaderboard();
     </script>
 </body>
 </html>
