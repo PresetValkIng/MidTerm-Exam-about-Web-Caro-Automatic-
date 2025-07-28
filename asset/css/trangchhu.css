@@ -96,25 +96,15 @@ close-btn {
       }
       
     /* Style cho bảng xếp hạng */
-.leaderboard {
+
+ .leaderboard {
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             padding: 15px;
             margin-top: 20px;
             width: 80%;
-            max-width: 400px;
+            max-width: 300px;
         }
-        
-.leaderboard h2 {
-            text-align: center;
-            margin-top: 0;
-        }
-        
-.leaderboard ol {
+ #leaderboardList {
             padding-left: 20px;
-        }
-        
-.leaderboard li {
-            margin-bottom: 8px;
-            font-size: 18px;
         }
