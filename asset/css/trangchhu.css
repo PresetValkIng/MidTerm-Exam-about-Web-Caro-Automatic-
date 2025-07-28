@@ -55,11 +55,6 @@ select {
     margin-top: 0px;
     cursor: pointer; /* Đổi con trỏ khi hover vào select */
     transition: all 0.2s ease;
-<<<<<<< HEAD
-=======
-    
-
->>>>>>> 24f2009b87194fe015de0f919db294d768de8567
 }
 
 select:hover {
