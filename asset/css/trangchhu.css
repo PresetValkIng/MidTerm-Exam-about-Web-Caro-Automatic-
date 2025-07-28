@@ -24,7 +24,7 @@ form {
 }
 .square h2{
     margin : 0px;
-    pointer-events: none;
+    pointer-events: none;  /* Cho phép click xuyên qua thẻ h2 */
 }
 .square {
     text-align: center;
