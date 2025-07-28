@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="asset/css/trangchhu.css"/>
     <title>Game cờ Caro của tam thái tử</title>
     <style>
         body {
@@ -41,6 +40,12 @@
             cursor: pointer;
             text-align: center;
             border: none;
+            width: 200px;
+        }
+        
+        .square h2 {
+            margin: 0;
+            pointer-events: none;
         }
         
         .square:hover {
@@ -65,6 +70,13 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 18px;
+            padding: 5px 10px;
+            transition: all 0.3s;
+        }
+        
+        .close-btn:hover {
+            color: red;
+            transform: scale(1.1);
         }
         
         select {
@@ -72,6 +84,7 @@
             width: 100%;
             margin-bottom: 15px;
             border-radius: 5px;
+            border: 1px solid #ccc;
         }
         
         .leaderboard {
@@ -101,14 +114,14 @@
         <span class="close-btn" id="closePanelBtn">x</span>
         <h3>Chọn chế độ chơi</h3>
         <select id="gameMode">
-           <option selected>Chọn chế độ chơi</option>
+           <option value="" selected disabled>Chọn chế độ chơi</option>
             <option value="human">Chơi với người 👨‍👧‍👧</option>
             <option value="computer">Chơi với máy 🖥️</option>
         </select>
         
         <h3>Chọn kích thước bàn cờ</h3>
         <select id="boardSize">
-            <option selected>Chọn kích thước</option>
+            <option value="" selected disabled>Chọn kích thước</option>
             <option value="15x15">15x15</option>
             <option value="19x19">19x19</option>
         </select>
@@ -127,6 +140,8 @@
         const startButton = document.getElementById('startButton');
         const playerNameInput = document.getElementById('playerName');
         const leaderboardList = document.getElementById('leaderboardList');
+        const gameModeSelect = document.getElementById('gameMode');
+        const boardSizeSelect = document.getElementById('boardSize');
         
         // Mảng lưu trữ danh sách người chơi
         let players = JSON.parse(localStorage.getItem('caroPlayers')) || [];
@@ -143,12 +158,23 @@
                 return;
             }
             
+            // Kiểm tra chế độ chơi và kích thước bàn cờ
+            if (gameModeSelect.value === "" || boardSizeSelect.value === "") {
+                alert('Vui lòng chọn chế độ chơi và kích thước bàn cờ!');
+                return;
+            }
+            
             // Kiểm tra xem người chơi đã tồn tại chưa
             const existingPlayer = players.find(player => player.name.toLowerCase() === name.toLowerCase());
             
             if (!existingPlayer) {
                 // Thêm người chơi mới
-                players.push({ name: name, score: 0 });
+                players.push({ 
+                    name: name, 
+                    score: 0,
+                    gameMode: gameModeSelect.value,
+                    boardSize: boardSizeSelect.value
+                });
                 
                 // Lưu vào localStorage
                 localStorage.setItem('caroPlayers', JSON.stringify(players));
@@ -158,7 +184,7 @@
             }
             
             playerNameInput.value = '';
-            alert('Chào mừng ' + name + ' đến với game Cờ Caro!');
+            alert(`Chào mừng ${name} đến với game Cờ Caro!\nChế độ: ${gameModeSelect.options[gameModeSelect.selectedIndex].text}\nKích thước: ${boardSizeSelect.options[boardSizeSelect.selectedIndex].text}`);
         });
         
         // Hiển thị bảng xếp hạng
@@ -166,13 +192,14 @@
             leaderboardList.innerHTML = '';
             players.forEach((player, index) => {
                 const li = document.createElement('li');
-                li.textContent = `${index + 1}. ${player.name} - ${player.score} điểm`;
+                li.textContent = `${index + 1}. ${player.name} - ${player.score} điểm (${player.gameMode === 'human' ? 'Người' : 'Máy'}, ${player.boardSize})`;
                 leaderboardList.appendChild(li);
             });
         }
         
         // Xử lý mở/đóng panel tùy chọn
-        optionsBtn.addEventListener('click', function() {
+        optionsBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
             panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
         });
         

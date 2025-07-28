@@ -52,15 +52,29 @@ select {
     border: 1px solid #0088e3;
     border-radius: 5px;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 0px;
     cursor: pointer; /* Đổi con trỏ khi hover vào select */
     transition: all 0.2s ease;
+<<<<<<< HEAD
+=======
+    
+
+>>>>>>> 24f2009b87194fe015de0f919db294d768de8567
 }
 
 select:hover {
     border-color: #1a52cb;
     box-shadow: 0 0 0 0.2rem rgba(20, 114, 255, 0.25);
 }
+#gameMode {
+    display: block; /* Đảm bảo nó là block để margin auto hoạt động */
+    margin: 0 auto; /* Căn giữa */
+}
+#boardSize{
+      display: block; /* Đảm bảo nó là block để margin auto hoạt động */
+    margin: 0 auto; /* Căn giữa */
+}
+
 input[type="text"] {
         width: 350px;
         padding: 28px 37px; /*12 20*/
