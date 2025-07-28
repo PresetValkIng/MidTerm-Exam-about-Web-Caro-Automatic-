@@ -31,7 +31,7 @@ form {
     cursor: pointer; /* Đổi con trỏ thành bàn tay */
 }
 
-/* Hiệu ứng khi hover */
+/* Hiệu ứng khi hover (Tro chuot vao square) */
 .square:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(164, 66, 66, 0.15);
@@ -52,7 +52,7 @@ select {
 
 select:hover {
     border-color: #1a52cb;
-    box-shadow: 0 0 0 0.2rem rgba(241, 73, 179, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(20, 114, 255, 0.25);
 }
 input[type="text"] {
         width: 250px;
@@ -64,15 +64,21 @@ input[type="text"] {
         text-align: center;
         outline: none;
       }
-.options-panel{
-        display: none; /*Ẩn giao diện khi bình thường*/
-        position: relative; /*để button nó theo khi mình chỉnh sửa*/
-        background-color: rgb(97, 140, 233);
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        width: 200px;
-        margin-top: 10px;
+      .options-panel {
+          display: none; /* Mặc định ẩn panel */
+          position: absolute; /* Để cho panel có thể đè lên các thẻ khác */
+          top: 50%; 
+          /*
+          left : 50%;
+          transform: translate(-50%, -50%);
+          */
+          background-color: white;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.5);
+          z-index: 1000; /* Đảm bảo panel hiển thị trên cùng */
+          width: 300px;
+          max-width: 90%;
       }
           
       /* Style cho nút đóng */
