@@ -55,8 +55,6 @@ select {
     margin-top: 0px;
     cursor: pointer; /* Đổi con trỏ khi hover vào select */
     transition: all 0.2s ease;
-    
-
 }
 
 select:hover {
