@@ -22,6 +22,10 @@ form {
     display: flex;
     border: none;
 }
+.square h2{
+    margin : 0px;
+    pointer-events: none;
+}
 .square {
     text-align: center;
     margin: 10px auto;
@@ -67,7 +71,7 @@ input[type="text"] {
         text-align: center;
         outline: none;
       }
-      .options-panel {
+.options-panel {
           display: none; /* Mặc định ẩn panel */
           position: absolute; /* Để cho panel có thể đè lên các thẻ khác */
           top: 50%; 
