@@ -93,10 +93,6 @@ input[type="text"] {
       }
     
 .close-btn {
-<<<<<<< HEAD
-       
-=======
->>>>>>> 271cbcaa4f28bc9b1855b0d3af166c49cb860ef9
         position: absolute;
         top: 5px;
         right: 10px;
@@ -105,8 +101,6 @@ input[type="text"] {
         font-weight: bold;
         
       }
-<<<<<<< HEAD
-
   /* Giao diện sáng */
 #board.light {
   background: #eee;
@@ -135,8 +129,6 @@ input[type="text"] {
   vertical-align: middle;
   cursor: pointer;
 }
-=======
-      
     /* Style cho bảng xếp hạng */
 
  .leaderboard {
@@ -150,4 +142,4 @@ input[type="text"] {
  #leaderboardList {
             padding-left: 20px;
         }
->>>>>>> 271cbcaa4f28bc9b1855b0d3af166c49cb860ef9
+
