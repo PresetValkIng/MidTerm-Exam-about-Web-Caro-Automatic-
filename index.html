@@ -65,24 +65,22 @@
     <h2 class="square">Bảng Xếp Hạng 🏆</h2>
 
     <script>
-        // Lấy các phần tử DOM cần thiết
+        // Lấy các phần tử ben trangchhu.css de gan bien su dung cho de
         const panel = document.getElementById('optionsPanel')
-        const optionsBtn = document.getElementById('optionsBtn')
+        const button = document.getElementById('optionsBtn')
         const closeBtn = document.getElementById('closePanelBtn')
         
         // Xử lý giao diện tùy chọn khi click vào nút Tùy Chọn
-        optionsBtn.addEventListener('click', function() {
-            panel.style.display = 'block' //Block = hiện thị
-        })
+         //Block = hiện thị
+        button.addEventListener('click', function() { panel.style.display = 'block' })
         
         // Xử lý giao diện tùy chọn khi click vào nút đóng
-        closeBtn.addEventListener('click', function() {
-            panel.style.display = 'none' //None = Dấu nó đi
-        })
+        //None = Dấu nó đi
+        closeBtn.addEventListener('click', function() { panel.style.display = 'none' })
         
         // Xử lý giao diện tùy chọn khi click ra ngoài panel
         document.addEventListener('click', function(event) {
-            if (!panel.contains(event.target) && event.target !== optionsBtn) {
+            if (!panel.contains(event.target) && event.target !== button) {
                 panel.style.display = 'none'
             }
         })
