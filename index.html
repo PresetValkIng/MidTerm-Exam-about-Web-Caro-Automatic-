@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="asset/css/trangchhu.css"/>
+      <link rel="stylesheet" href="asset/css/trangchhu.css"/>
     <title>Game cờ Caro của tam thái tử</title>
     <style>
-      /* Thiết lập style chung cho toàn bộ trang */
-      body {
+        body {
             background-image: url(asset/Images/anh.jpg);
             background-size: cover;
             display: flex;
@@ -18,74 +17,108 @@
             margin: 0;
             padding: 10px;
         }
+      
     </style>
 </head>
 <body>
+    <h1>CỜ CARO</h1>
+    
+    <input type="text" id="playerName" placeholder="Nhập tên">
+    
+    <button id="startButton" class="square"><h2>Bắt Đầu</h2></button>
+    
+    <button id="optionsBtn" class="square"> <h2>Tùy Chọn ⚙️</h2></button>
+    
+    <div class="options-panel" id="optionsPanel">
+        <span class="close-btn" id="closePanelBtn" >x</span>
+        <h3>Chọn chế độ chơi</h3>
+        <select id="gameMode">
+<<<<<<< HEAD
+=======
 
-    <!-- Tiêu đề game -->
-     <h1>CỜ CARO</h1>
-    
-    <!-- Ô nhập tên người chơi -->
-    <input type="text" placeholder=" Nhập tên người chơi ">
-    
-    <!-- Nút bắt đầu game -->
-    <div class="square">
-        <form action="" method="post">
-            <h2>Bắt Đầu</h2>
-        </form>
-    </div>
-        <!-- Nút mở panel tùy chọn -->
-        <h2 class="square" id="optionsBtn">Tùy Chọn ⚙️</h2>
+>>>>>>> ea488ed41101255002b806dfdfffc991d45c57d5
+           <option value="" selected disabled >Chọn chế độ chơi</option>
+           <option selected >Chọn chế độ chơi</option>
+
+            <option value="human">Chơi với người 👨‍👧‍👧</option>
+            <option value="computer">Chơi với máy 🖥️</option>
+        </select>
         
-        <!-- Panel tùy chọn -->
-        <div class="options-panel" id="optionsPanel">
-            <!-- Nút đóng panel -->
-            <span class="close-btn" id="closePanelBtn" >  x  </span>
-            
-            <!-- Chọn chế độ chơi -->
-            <h3>Chọn chế độ chơi</h3>
-            <select style="width: 100%; margin-bottom: 10px;">
-               <option selected> Chọn chế độ chơi  </option>
-                <option value="human">Chơi với người 👨‍👧‍👧</option>
-                
-
-                <option value="computer">Chơi với máy 🖥️</option>
-                
-            </select>
-            
-            <!-- Chọn kích thước bàn cờ -->
-            <h3>Chọn kích thước bàn cờ</h3>
-            <select style="width: 100%;">
-                <option selected>Chọn kích thước</option>
-                <option value="15x15">15x15</option>
-                <option value="19x19">19x19</option>
-            </select>
-        </div>
+        <h3>Chọn kích thước bàn cờ</h3>
+        <select id="boardSize">
+            <option value ="" selected disabled>Chọn kích thước</option>
+            <option value="15x15">15x15</option>
+            <option value="19x19">19x19</option>
+        </select>
+    </div>
     
-
-    <!-- Bảng xếp hạng -->
-    <h2 class="square">Bảng Xếp Hạng 🏆</h2>
+    <div class="leaderboard">
+        <h2>Bảng Xếp Hạng 🏆</h2>
+        <ol id="leaderboardList"></ol>
+    </div>
 
     <script>
-        // Lấy các phần tử ben trangchhu.css de gan bien su dung cho de
-        const panel = document.getElementById('optionsPanel')
-        const button = document.getElementById('optionsBtn')
-        const closeBtn = document.getElementById('closePanelBtn')
+        // Lấy các phần tử từ DOM
+        const panel = document.getElementById('optionsPanel');
+        const optionsBtn = document.getElementById('optionsBtn');
+        const closeBtn = document.getElementById('closePanelBtn');
+        const startButton = document.getElementById('startButton');
+        const playerNameInput = document.getElementById('playerName');
+        const leaderboardList = document.getElementById('leaderboardList');
         
-        // Xử lý giao diện tùy chọn khi click vào nút Tùy Chọn
-         //Block = hiện thị
-        button.addEventListener('click', function() { panel.style.display = 'block' })
+        // Mảng lưu trữ danh sách người chơi
+        let players = JSON.parse(localStorage.getItem('caroPlayers')) || [];
         
-        // Xử lý giao diện tùy chọn khi click vào nút đóng
-        //None = Dấu nó đi
-        closeBtn.addEventListener('click', function() { panel.style.display = 'none' })
+        // Hiển thị danh sách người chơi khi trang được tải
+        displayLeaderboard();
         
-        // Xử lý giao diện tùy chọn khi click ra ngoài panel
-        document.addEventListener('click', function(event) {
-            if (!panel.contains(event.target) && event.target !== button) {
-                panel.style.display = 'none'
+        // Khi nhấn nút Bắt Đầu
+        startButton.addEventListener('click', function() {
+            const name = playerNameInput.value.trim();
+            
+            if (name === '') {
+                alert('Vui lòng nhập tên!');
+                return;
             }
-        })
+            
+            // Kiểm tra xem người chơi đã tồn tại chưa
+            const existingPlayer = players.find(player => player.name.toLowerCase() === name.toLowerCase());
+            
+            if (!existingPlayer) {
+                // Thêm người chơi mới
+                players.push({ name: name, score: 0 });
+                
+                // Lưu vào localStorage
+                localStorage.setItem('caroPlayers', JSON.stringify(players));
+                
+                // Cập nhật bảng xếp hạng
+                displayLeaderboard();
+            }
+            
+            playerNameInput.value = '';
+            alert('Chào mừng ' + name + ' đến với game Cờ Caro!');
+        });
+        
+        // Hiển thị bảng xếp hạng
+        function displayLeaderboard() {
+            leaderboardList.innerHTML = '';
+            players.forEach((player, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${index + 1}. ${player.name} - ${player.score} điểm`;
+                leaderboardList.appendChild(li);
+            });
+        }
+        
+        // Xử lý mở/đóng panel tùy chọn
+        optionsBtn.addEventListener('click', () => panel.style.display = 'block');
+        closeBtn.addEventListener('click', () => panel.style.display = 'none');
+        
+        // Đóng panel khi click bên ngoài
+        document.addEventListener('click', (event) => {
+            if (!panel.contains(event.target) && event.target !== optionsBtn) {
+                panel.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>

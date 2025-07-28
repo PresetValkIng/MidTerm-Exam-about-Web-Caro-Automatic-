@@ -7,8 +7,8 @@ body {
     color: red;
     text-align: center;
     font-size: 75px;
-    margin-top: 0px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 h2 {
     text-align: center;
@@ -21,6 +21,10 @@ form {
     justify-content: center;
     display: flex;
     border: none;
+}
+.square h2{
+    margin : 0px;
+    pointer-events: none;  /* Cho phép click xuyên qua thẻ h2 */
 }
 .square {
     text-align: center;
@@ -48,7 +52,7 @@ select {
     border: 1px solid #0088e3;
     border-radius: 5px;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 0px;
     cursor: pointer; /* Đổi con trỏ khi hover vào select */
     transition: all 0.2s ease;
 }
@@ -56,6 +60,10 @@ select {
 select:hover {
     border-color: #1a52cb;
     box-shadow: 0 0 0 0.2rem rgba(20, 114, 255, 0.25);
+}
+#gameMode, #boardSize {
+    display: block; /* Đảm bảo nó là block để margin auto hoạt động */
+    margin: 0 auto;
 }
 input[type="text"] {
         width: 350px;
@@ -67,7 +75,7 @@ input[type="text"] {
         text-align: center;
         outline: none;
       }
-      .options-panel {
+.options-panel {
           display: none; /* Mặc định ẩn panel */
           position: absolute; /* Để cho panel có thể đè lên các thẻ khác */
           top: 50%; 
@@ -83,17 +91,21 @@ input[type="text"] {
           width: 300px;
           max-width: 90%;
       }
-          
     
 .close-btn {
+<<<<<<< HEAD
        
+=======
+>>>>>>> 271cbcaa4f28bc9b1855b0d3af166c49cb860ef9
         position: absolute;
         top: 5px;
         right: 10px;
         cursor: pointer;
         font-size: 30px;
         font-weight: bold;
+        
       }
+<<<<<<< HEAD
 
   /* Giao diện sáng */
 #board.light {
@@ -123,3 +135,19 @@ input[type="text"] {
   vertical-align: middle;
   cursor: pointer;
 }
+=======
+      
+    /* Style cho bảng xếp hạng */
+
+ .leaderboard {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 300px;
+        }
+ #leaderboardList {
+            padding-left: 20px;
+        }
+>>>>>>> 271cbcaa4f28bc9b1855b0d3af166c49cb860ef9

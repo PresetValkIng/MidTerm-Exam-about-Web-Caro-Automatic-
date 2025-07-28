@@ -3,35 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="asset/css/trangchhu.css"/>
-    <title> Game cờ Caro của tam thái tử </title>
+    <title>Game cờ Caro của tam thái tử</title>
     <style>
-      body {
+        body {
             background-image: url(asset/Images/anh.jpg);
-            background-size: contain;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            font-family: Arial, sans-serif;
         }
         
-      .mode-selection {
-        display: none; /* Ẩn ban đầu */
-        margin-top: 10px;
-      }
-      
-      .mode-btn {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        margin: 5px 0;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+        h1 {
+            color: white;
+            text-shadow: 2px 2px 4px #000000;
+        }
+        
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        .square {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            width: 200px;
+        }
+        
+        .square h2 {
+            margin: 0;
+            pointer-events: none;
+        }
+        
+        .square:hover {
+            background-color: #45a049;
+        }
+        
+        .options-panel {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 300px;
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 5px 10px;
+            transition: all 0.3s;
+        }
+        
+        .close-btn:hover {
+            color: red;
+            transform: scale(1.1);
+        }
+        
+        select {
+            padding: 8px;
+            width: 100%;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        .leaderboard {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 300px;
+        }
+        
+        #leaderboardList {
+            padding-left: 20px;
+        }
     </style>
     
 </head>
 <body>
-     <h3><i>Cài đặt</i></h3>
-     <h1>CỜ CARO</h1>
+    <h1>CỜ CARO</h1>
+    
+    <input type="text" id="playerName" placeholder="Nhập tên">
+    
+    <button id="startButton" class="square"><h2>Bắt Đầu</h2></button>
+    
+    <button id="optionsBtn" class="square"><h2>Tùy Chọn ⚙️</h2></button>
+    
+    <div class="options-panel" id="optionsPanel">
+        <span class="close-btn" id="closePanelBtn">x</span>
+        <h3>Chọn chế độ chơi</h3>
+        <select id="gameMode">
+           <option value="" selected disabled>Chọn chế độ chơi</option>
+            <option value="human">Chơi với người 👨‍👧‍👧</option>
+            <option value="computer">Chơi với máy 🖥️</option>
+        </select>
+        
+        <h3>Chọn kích thước bàn cờ</h3>
+        <select id="boardSize">
+            <option value="" selected disabled>Chọn kích thước</option>
+            <option value="15x15">15x15</option>
+            <option value="19x19">19x19</option>
+        </select>
+    </div>
+    
+    <div class="leaderboard">
+        <h2>Bảng Xếp Hạng 🏆</h2>
+        <ol id="leaderboardList"></ol>
+    </div>
 
+<<<<<<< HEAD
      <div class="square">
       <h3>Chọn kích thước bàn cờ</h3>
     <select id="boardSize">
@@ -57,5 +159,89 @@
 
   <h2 class="square">Bảng Xếp Hạng 🏆</h2>
      <script src="asset/css/taobanco.js"></script>
+=======
+    <script>
+        // Lấy các phần tử từ DOM
+        const panel = document.getElementById('optionsPanel');
+        const optionsBtn = document.getElementById('optionsBtn');
+        const closeBtn = document.getElementById('closePanelBtn');
+        const startButton = document.getElementById('startButton');
+        const playerNameInput = document.getElementById('playerName');
+        const leaderboardList = document.getElementById('leaderboardList');
+        const gameModeSelect = document.getElementById('gameMode');
+        const boardSizeSelect = document.getElementById('boardSize');
+        
+        // Mảng lưu trữ danh sách người chơi
+        let players = JSON.parse(localStorage.getItem('caroPlayers')) || [];
+        
+        // Hiển thị danh sách người chơi khi trang được tải
+        displayLeaderboard();
+        
+        // Khi nhấn nút Bắt Đầu
+        startButton.addEventListener('click', function() {
+            const name = playerNameInput.value.trim();
+            
+            if (name === '') {
+                alert('Vui lòng nhập tên!');
+                return;
+            }
+            
+            // Kiểm tra chế độ chơi và kích thước bàn cờ
+            if (gameModeSelect.value === "" || boardSizeSelect.value === "") {
+                alert('Vui lòng chọn chế độ chơi và kích thước bàn cờ!');
+                return;
+            }
+            
+            // Kiểm tra xem người chơi đã tồn tại chưa
+            const existingPlayer = players.find(player => player.name.toLowerCase() === name.toLowerCase());
+            
+            if (!existingPlayer) {
+                // Thêm người chơi mới
+                players.push({ 
+                    name: name, 
+                    score: 0,
+                    gameMode: gameModeSelect.value,
+                    boardSize: boardSizeSelect.value
+                });
+                
+                // Lưu vào localStorage
+                localStorage.setItem('caroPlayers', JSON.stringify(players));
+                
+                // Cập nhật bảng xếp hạng
+                displayLeaderboard();
+            }
+            
+            playerNameInput.value = '';
+            alert(`Chào mừng ${name} đến với game Cờ Caro!\nChế độ: ${gameModeSelect.options[gameModeSelect.selectedIndex].text}\nKích thước: ${boardSizeSelect.options[boardSizeSelect.selectedIndex].text}`);
+        });
+        
+        // Hiển thị bảng xếp hạng
+        function displayLeaderboard() {
+            leaderboardList.innerHTML = '';
+            players.forEach((player, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${index + 1}. ${player.name} - ${player.score} điểm (${player.gameMode === 'human' ? 'Người' : 'Máy'}, ${player.boardSize})`;
+                leaderboardList.appendChild(li);
+            });
+        }
+        
+        // Xử lý mở/đóng panel tùy chọn
+        optionsBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        closeBtn.addEventListener('click', function() {
+            panel.style.display = 'none';
+        });
+        
+        // Đóng panel khi click bên ngoài
+        document.addEventListener('click', function(event) {
+            if (!panel.contains(event.target) && event.target !== optionsBtn) {
+                panel.style.display = 'none';
+            }
+        });
+    </script>
+>>>>>>> 271cbcaa4f28bc9b1855b0d3af166c49cb860ef9
 </body>
 </html>
