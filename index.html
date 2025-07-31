@@ -40,10 +40,7 @@
         <span class="close-btn" id="closePanelBtn" >x</span>
         <h3>Chọn chế độ chơi</h3>
         <select id="gameMode">
-        <select id="modeSelection">
            <option value="" selected disabled >Chọn chế độ chơi</option>
-           <option selected >Chọn chế độ chơi</option>
-
             <option value="human">Chơi với người 👨‍👧‍👧</option>
             <option value="computer">Chơi với máy 🖥️</option>
         </select>
@@ -76,14 +73,7 @@
         let players = JSON.parse(localStorage.getItem('caroPlayers')) || [];
         // Hiển thị danh sách người chơi khi trang được tải
         displayLeaderboard();
-        
-
-
-
-
-
-
-        // Khi nhấn nút Bắt Đầu
+         // Khi nhấn nút Bắt Đầu
     startButton.addEventListener('click', function() {
     const name = playerNameInput.value.trim();
     
@@ -162,14 +152,6 @@
     // Chuyển hướng sang trang Starts.html
     window.location.href = 'Starts.html';
 });
-        
-
-
-
-
-
-
-
         // Hiển thị bảng xếp hạng
         function displayLeaderboard() {
             leaderboardList.innerHTML = '';
