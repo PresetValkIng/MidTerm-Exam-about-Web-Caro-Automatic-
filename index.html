@@ -31,9 +31,9 @@
     <!-- Nút đổi giao diện -->
 
   <button id="themeBtn" style="display:none;">Đổi giao diện</button>
+  <button id="themeBtn" style="display:none;">Đổi giao diện</button>
 
     <button id="themeBtn" style="display:none;">Đổi giao diện</button>
-
   <!-- Bàn cờ -->
   <div id="board" class="light"></div>
     <div class="options-panel" id="optionsPanel">
@@ -88,7 +88,6 @@
     if (!existingPlayer) {
         // Thêm người chơi mới
         players.push({ name: name, score: 0 });
-
         startButton.addEventListener('click', function() {
             const name = playerNameInput.value.trim();
             
@@ -127,7 +126,6 @@
                  themeBtn.style.display = 'inline-block';
                
         });
-
         
         // Lưu vào localStorage
         localStorage.setItem('caroPlayers', JSON.stringify(players));
