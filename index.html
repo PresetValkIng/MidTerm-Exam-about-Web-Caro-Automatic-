@@ -73,14 +73,7 @@
         let players = JSON.parse(localStorage.getItem('caroPlayers')) || [];
         // Hiển thị danh sách người chơi khi trang được tải
         displayLeaderboard();
-        
-
-
-
-
-
-
-        // Khi nhấn nút Bắt Đầu
+         // Khi nhấn nút Bắt Đầu
     startButton.addEventListener('click', function() {
     const name = playerNameInput.value.trim();
     
@@ -179,14 +172,6 @@ function getBoardSize() {
     // Chuyển hướng sang trang Starts.html
     window.location.href = 'Starts.html';
 });
-        
-
-
-
-
-
-
-
         // Hiển thị bảng xếp hạng
         function displayLeaderboard() {
             leaderboardList.innerHTML = '';
