@@ -28,11 +28,15 @@
     <button id="startButton" class="square"><h2>Bắt Đầu</h2></button>
     
     <button id="optionsBtn" class="square"> <h2>Tùy Chọn ⚙️</h2></button>
-    
+    <!-- Nút đổi giao diện -->
+                <button id="themeBtn" style="display:none;">Đổi giao diện</button>
+  <!-- Bàn cờ -->
+  <div id="board" class="light"></div>
     <div class="options-panel" id="optionsPanel">
         <span class="close-btn" id="closePanelBtn" >x</span>
         <h3>Chọn chế độ chơi</h3>
         <select id="gameMode">
+        <select id="modeSelection">
            <option value="" selected disabled >Chọn chế độ chơi</option>
            <option selected >Chọn chế độ chơi</option>
 
@@ -46,12 +50,15 @@
             <option value="15x15">15x15</option>
             <option value="19x19">19x19</option>
         </select>
+        <br><br>
+        <button id="playBtn">Chơi ngay</button> <!--Nút tạo bàn cờ -->
     </div>
     
     <div class="leaderboard">
         <h2>Bảng Xếp Hạng 🏆</h2>
         <ol id="leaderboardList"></ol>
     </div>
+
 
     <script>
         // Lấy các phần tử từ DOM
@@ -89,10 +96,22 @@
                 
                 // Cập nhật bảng xếp hạng
                 displayLeaderboard();
+
             }
             
             playerNameInput.value = '';
             alert('Chào mừng ' + name + ' đến với game Cờ Caro!');
+            // 🔹 Lấy kích thước bàn cờ
+            const size = parseInt(boardSizeSelect.value);
+            if (!size) {
+                alert('Hãy chọn kích thước bàn cờ!');
+                return;
+            }
+
+            // 🔹 Gọi hàm tạo bàn cờ từ file taobanco.js
+            createBoard(size);
+                 themeBtn.style.display = 'inline-block';
+               
         });
         
         // Hiển thị bảng xếp hạng
@@ -112,9 +131,11 @@
         // Đóng panel khi click bên ngoài
         document.addEventListener('click', (event) => {
             if (!panel.contains(event.target) && event.target !== optionsBtn) {
-                panel.style.display = 'none';
+                panel.style.display = 'none';   
             }
         });
     </script>
+     
+ <script src="asset/javascript/taobanco.js"></script>
 </body>
 </html>

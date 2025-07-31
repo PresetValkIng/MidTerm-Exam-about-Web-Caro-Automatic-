@@ -103,22 +103,23 @@ input[type="text"] {
       }
   /* Giao diện sáng */
 #board.light {
-  background: #eee;
+  
   border: 2px solid #aaa;
   padding: 5px;
 }
 
 /* Giao diện tối */
 #board.dark {
-  background: #8e8c8c;
+  
   border: 2px solid #666;
   padding: 5px;
 }
-#board.light .x { color: blue; }
-#board.light .o { color: red; }
+#board.light .x { color: rgb(245, 245, 249); }
+#board.light .o { color: rgb(246, 56, 59); }
 
-#board.dark .x { color: cyan; }
+#board.dark .x { color: rgb(210, 241, 33); }
 #board.dark .o { color: orange; }
+
  .cell {
   display: inline-block;
   width: 30px;
