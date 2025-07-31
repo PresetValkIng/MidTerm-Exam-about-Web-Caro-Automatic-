@@ -25,7 +25,7 @@
     
     <input type="text" id="playerName" placeholder="Nhập tên">
     
-    <button id="startButton" class="square"><h2>Bắt Đầu</h2></button>
+    <button id="startButton" class="square"><h2> <a href = "Starts.html">Bắt Đầu</a></h2></button>
     
     <button id="optionsBtn" class="square"> <h2>Tùy Chọn ⚙️</h2></button>
     <!-- Nút đổi giao diện -->
@@ -68,52 +68,64 @@
         const startButton = document.getElementById('startButton');
         const playerNameInput = document.getElementById('playerName');
         const leaderboardList = document.getElementById('leaderboardList');
-        
         // Mảng lưu trữ danh sách người chơi
         let players = JSON.parse(localStorage.getItem('caroPlayers')) || [];
-        
         // Hiển thị danh sách người chơi khi trang được tải
         displayLeaderboard();
         
+
+
+
+
+
+
         // Khi nhấn nút Bắt Đầu
-        startButton.addEventListener('click', function() {
-            const name = playerNameInput.value.trim();
-            
-            if (name === '') {
-                alert('Vui lòng nhập tên!');
-                return;
-            }
-            
-            // Kiểm tra xem người chơi đã tồn tại chưa
-            const existingPlayer = players.find(player => player.name.toLowerCase() === name.toLowerCase());
-            
-            if (!existingPlayer) {
-                // Thêm người chơi mới
-                players.push({ name: name, score: 0 });
-                
-                // Lưu vào localStorage
-                localStorage.setItem('caroPlayers', JSON.stringify(players));
-                
-                // Cập nhật bảng xếp hạng
-                displayLeaderboard();
-
-            }
-            
-            playerNameInput.value = '';
-            alert('Chào mừng ' + name + ' đến với game Cờ Caro!');
-            // 🔹 Lấy kích thước bàn cờ
-            const size = parseInt(boardSizeSelect.value);
-            if (!size) {
-                alert('Hãy chọn kích thước bàn cờ!');
-                return;
-            }
-
-            // 🔹 Gọi hàm tạo bàn cờ từ file taobanco.js
-            createBoard(size);
-                 themeBtn.style.display = 'inline-block';
-               
-        });
+    startButton.addEventListener('click', function() {
+    const name = playerNameInput.value.trim();
+    
+    if (name === '') {
+        alert('Vui lòng nhập tên!');
+        return;
+    }
+    
+    // Kiểm tra xem người chơi đã tồn tại chưa
+    const existingPlayer = players.find(player => player.name.toLowerCase() === name.toLowerCase());
+    
+    if (!existingPlayer) {
+        // Thêm người chơi mới
+        players.push({ name: name, score: 0 });
         
+        // Lưu vào localStorage
+        localStorage.setItem('caroPlayers', JSON.stringify(players));
+        
+        // Cập nhật bảng xếp hạng
+        displayLeaderboard();
+    }
+    
+    // Lấy kích thước bàn cờ
+    const boardSizeSelect = document.getElementById('boardSize');
+    const size = boardSizeSelect.value;
+    
+    if (!size) {
+        alert('Hãy chọn kích thước bàn cờ!');
+        return;
+    }
+    
+    // Lưu thông tin người chơi và cài đặt vào localStorage
+    localStorage.setItem('currentPlayer', name);
+    localStorage.setItem('boardSize', size);
+    
+    // Chuyển hướng sang trang Starts.html
+    window.location.href = 'Starts.html';
+});
+        
+
+
+
+
+
+
+
         // Hiển thị bảng xếp hạng
         function displayLeaderboard() {
             leaderboardList.innerHTML = '';
