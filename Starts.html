@@ -8,9 +8,9 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
+            background-color: #9ca3ae;
             margin: 0;
-            padding: 20px;
+            padding: 50px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -52,43 +52,38 @@
         
         // Hàm tạo bàn cờ
         function createBoard(size) {
-            board.innerHTML = '';
-            board.style.gridTemplateColumns = `repeat(${size}, 40px)`;
-            
-            for (let i = 0; i < size * size; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'cell';
-                cell.dataset.index = i;
-                
-                cell.addEventListener('click', () => handleCellClick(cell));
-                board.appendChild(cell);
-            }
-        }
-        
-        // Xử lý khi click vào ô
-        function handleCellClick(cell) {
-            if (!gameActive || cell.textContent !== '') return;
-            
-            cell.textContent = currentPlayer;
+  board.innerHTML = ''; // xóa bàn cũ
+  board.classList.remove('dark');
+  board.classList.add('light');
+  for (let row = 0; row < size; row++) {
+    for (let col = 0; col < size; col++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.style.display = 'inline-block';   // đứng cạnh nhau
+      cell.style.width = '30px';
+      cell.style.height = '30px';
+      cell.style.border = '1px solid #aaa';
+      cell.style.textAlign = 'center';
+      cell.style.verticalAlign = 'middle';
+      cell.style.lineHeight = '30px'; // căn giữa chữ X/O
+
+      // click để đánh X/O
+      cell.addEventListener('click', () => {
+        if (!cell.textContent) {
+          cell.textContent = currentPlayer;
             cell.classList.add(currentPlayer.toLowerCase());
-            
-            // Kiểm tra thắng thua
-            if (checkWin()) {
-                setTimeout(() => {
-                    alert(`Người chơi ${currentPlayer} thắng!`);
-                    gameActive = false;
-                }, 100);
-                return;
-            }
-            
-            // Đổi lượt
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            
-            // Nếu chơi với máy
-            if (gameMode === 'computer' && currentPlayer === 'O' && gameActive) {
-                setTimeout(computerMove, 500);
-            }
+          currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
         }
+      });
+
+      board.appendChild(cell);
+    }
+    // xuống dòng sau mỗi hàng
+    board.appendChild(document.createElement('br'));
+  }
+
+  board.style.display = 'block';
+}
         
         // Máy đánh (AI đơn giản)
         function computerMove() {
