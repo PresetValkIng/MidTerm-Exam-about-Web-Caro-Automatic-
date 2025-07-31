@@ -1,5 +1,5 @@
  let currentPlayer = 'X';
-const startBtn = document.getElementById('startBtn');
+const startBtn = document.getElementById('startButton');
 const boardSizeSelect = document.getElementById('boardSize');
 const modeSelection = document.getElementById('modeSelection');
 const themeBtn = document.getElementById('themeBtn');
@@ -7,7 +7,8 @@ const board = document.getElementById('board');
 // hàm tạo bàn cờ
 function createBoard(size) {
   board.innerHTML = ''; // xóa bàn cũ
-
+  board.classList.remove('dark');
+  board.classList.add('light');
   for (let row = 0; row < size; row++) {
     for (let col = 0; col < size; col++) {
       const cell = document.createElement('div');
@@ -63,8 +64,7 @@ document.getElementById('playWithComputer').addEventListener('click', function()
   modeSelection.style.display = 'none';
 });
 
-// Đổi giao diện
-themeBtn.addEventListener('click', function() {
-  board.classList.toggle('light');
-  board.classList.toggle('dark');
+ themeBtn.addEventListener('click', function() {
+    board.classList.toggle('dark');
+    board.classList.toggle('light');
 });
