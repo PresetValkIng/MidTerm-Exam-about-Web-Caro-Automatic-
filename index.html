@@ -29,11 +29,11 @@
     
     <button id="optionsBtn" class="square"> <h2>Tùy Chọn ⚙️</h2></button>
     <!-- Nút đổi giao diện -->
-<<<<<<< HEAD
+
   <button id="themeBtn" style="display:none;">Đổi giao diện</button>
-=======
+
     <button id="themeBtn" style="display:none;">Đổi giao diện</button>
->>>>>>> e509919ed5eb421dac0429d0135b9234f1487e7e
+
   <!-- Bàn cờ -->
   <div id="board" class="light"></div>
     <div class="options-panel" id="optionsPanel">
@@ -84,7 +84,6 @@
 
 
         // Khi nhấn nút Bắt Đầu
-<<<<<<< HEAD
     startButton.addEventListener('click', function() {
     const name = playerNameInput.value.trim();
     
@@ -99,7 +98,7 @@
     if (!existingPlayer) {
         // Thêm người chơi mới
         players.push({ name: name, score: 0 });
-=======
+
         startButton.addEventListener('click', function() {
             const name = playerNameInput.value.trim();
             
@@ -138,7 +137,7 @@
                  themeBtn.style.display = 'inline-block';
                
         });
->>>>>>> e509919ed5eb421dac0429d0135b9234f1487e7e
+
         
         // Lưu vào localStorage
         localStorage.setItem('caroPlayers', JSON.stringify(players));
