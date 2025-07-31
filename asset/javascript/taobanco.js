@@ -14,7 +14,7 @@ function createBoard(size) {
       const cell = document.createElement('div');
       cell.className = 'cell';
       cell.style.display = 'inline-block';   // đứng cạnh nhau
-      cell.style.width = '30px';a
+      cell.style.width = '30px';
       cell.style.height = '30px';
       cell.style.border = '1px solid #aaa';
       cell.style.textAlign = 'center';
