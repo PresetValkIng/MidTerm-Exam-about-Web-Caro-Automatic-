@@ -29,7 +29,7 @@
     
     <button id="optionsBtn" class="square"> <h2>Tùy Chọn ⚙️</h2></button>
     <!-- Nút đổi giao diện -->
-                <button id="themeBtn" style="display:none;">Đổi giao diện</button>
+    <button id="themeBtn" style="display:none;">Đổi giao diện</button>
   <!-- Bàn cờ -->
   <div id="board" class="light"></div>
     <div class="options-panel" id="optionsPanel">
@@ -109,6 +109,7 @@
 
             // 🔹 Gọi hàm tạo bàn cờ từ file taobanco.js
             createBoard(size);
+            const themeBtn = document.getElementById('themeBtn');
                  themeBtn.style.display = 'inline-block';
                
         });
