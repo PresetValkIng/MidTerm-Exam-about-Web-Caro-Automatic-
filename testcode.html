@@ -155,10 +155,9 @@
 
   <!-- Bàn cờ -->
   <div id="board" class="light"></div>
- <script src="asset/javascript/taobanco.js"></script>
-  <h2 class="square">Bảng Xếp Hạng 🏆</h2>
-    
 
+  <h2 class="square">Bảng Xếp Hạng 🏆</h2>
+     <script src="asset/javascript/taobanco.js"></script>
  <script>
         // Lấy các phần tử từ DOM
         const panel = document.getElementById('optionsPanel');
@@ -208,8 +207,6 @@
                 
                 // Cập nhật bảng xếp hạng
                 displayLeaderboard();
-                const themeBtn = document.getElementById('themeBtn');   
-                 themeBtn.style.display = 'inline-block';
             }
             
             playerNameInput.value = '';
