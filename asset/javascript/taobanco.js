@@ -67,4 +67,5 @@ document.getElementById('playWithComputer').addEventListener('click', function()
  themeBtn.addEventListener('click', function() {
     board.classList.toggle('dark');
     board.classList.toggle('light');
+     console.log('Đã đổi giao diện!');
 });
