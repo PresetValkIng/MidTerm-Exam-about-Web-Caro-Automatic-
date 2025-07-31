@@ -213,8 +213,10 @@ input[type="text"] {
         }
         
         .dark-mode {
+           
             background-color: #202124;
             color: #e8eaed;
+              
         }
         
         .dark-mode .game-container {
@@ -223,7 +225,7 @@ input[type="text"] {
         }
         
         .dark-mode .cell {
-            background-color: #303134;
+            background-color: #2e3036;
             border-color: #5f6368;
             color: #e8eaed;
         }
