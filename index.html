@@ -133,6 +133,28 @@
                  themeBtn.style.display = 'inline-block';
                
         });
+        const boardSizeSelect = document.getElementById('boardSize');
+const customSizeContainer = document.getElementById('customSizeContainer');
+const customSizeInput = document.getElementById('customSize');
+
+// Xử lý khi chọn kích thước
+boardSizeSelect.addEventListener('change', function() {
+    if (this.value === 'custom') {
+        customSizeContainer.style.display = 'block';
+    } else {
+        customSizeContainer.style.display = 'none';
+    }
+});
+
+// Hàm lấy kích thước bàn cờ
+function getBoardSize() {
+    const selectedSize = boardSizeSelect.value;
+    if (selectedSize === 'custom') {
+        const size = parseInt(customSizeInput.value);
+        return Math.max(3, Math.min(size || 15, 30)); // Giới hạn từ 3-30
+    }
+    return parseInt(selectedSize || 15); // Mặc định 15x15 nếu không chọn
+}
         
         // Lưu vào localStorage
         localStorage.setItem('caroPlayers', JSON.stringify(players));
