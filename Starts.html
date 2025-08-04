@@ -7,16 +7,150 @@
     <title>Game cờ Caro của tam thái tử - Bắt đầu !</title>
     <style>
         body {
+<<<<<<< HEAD
             font-family: 'Arial', sans-serif;
             background-color: #9ca3ae;
             margin: 0;
             padding: 50px;
+=======
+            background-image: url(asset/Images/anh.jpg);
+            background-size: cover;
+>>>>>>> aa83a93716d8f561d4bab4431f78289b70fd4dac
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            font-family: 'Arial', sans-serif;
+            transition: background 0.3s;
         }
         
+        .game-header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        
+        .game-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: fit-content;
+            max-width: 90%;
+        }
+        
+        #board {
+            display: grid;
+            gap: 2px;
+            margin: 0 auto;
+            background-color: #ddd;
+            border: 2px solid #555;
+        }
+        
+        .cell {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            aspect-ratio: 1/1;
+            transition: all 0.2s;
+        }
+        
+        .cell:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .cell.x {
+            color: #4285F4;
+        }
+        
+        .cell.o {
+            color: #EA4335;
+        }
+        
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 8px 16px;
+            background-color: #4285F4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            background-color: #3367D6;
+            transform: translateY(-2px);
+        }
+        
+        .player-info {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        
+        .dark-mode {
+            background-color: #222;
+            color: #eee;
+        }
+        
+        .dark-mode .game-container {
+            background-color: rgba(40, 40, 40, 0.9);
+        }
+        
+        .dark-mode #board {
+            background-color: #444;
+            border-color: #666;
+        }
+        
+        .dark-mode .cell {
+            background-color: #333;
+            color: #eee;
+        }
+        
+        .dark-mode .cell:hover {
+            background-color: #3a3a3a;
+        }
+        
+        .dark-mode .player-info {
+            background-color: rgba(60, 60, 60, 0.7);
+            color: #eee;
+        }
+        
+        @media (max-width: 600px) {
+            .cell {
+                font-size: 18px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            button {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -48,6 +182,7 @@
         const playerInfo = document.getElementById('playerInfo');
         
         // Hiển thị thông tin người chơi
+<<<<<<< HEAD
         playerInfo.textContent = `${playerName} - Chế độ: ${gameMode === 'human' ? '2 người' : 'Máy'}`;
         
         // Hàm tạo bàn cờ
@@ -84,35 +219,140 @@
 
   board.style.display = 'block';
 }
-        
-        // Máy đánh (AI đơn giản)
-        function computerMove() {
-            const cells = document.querySelectorAll('.cell');
-            const emptyCells = Array.from(cells).filter(cell => cell.textContent === '');
+=======
+        playerInfo.textContent = `${playerName} - Chế độ: ${gameMode === 'human' ? '2 người' : 'Máy'} - Bàn cờ: ${boardSize}x${boardSize}`;
+    
+
+        // Hàm tạo bàn cờ với kích thước linh hoạt
+        function createBoard() {
+            board.innerHTML = '';
             
-            if (emptyCells.length > 0) {
-                const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-                randomCell.textContent = 'O';
-                randomCell.classList.add('o');
-                
-                if (checkWin()) {
-                    setTimeout(() => {
-                        alert('Máy thắng!');
-                        gameActive = false;
-                    }, 100);
-                } else {
-                    currentPlayer = 'X';
-                }
+            // Thiết lập grid
+            board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
+            
+            // Tự động tính kích thước ô
+            const maxBoardWidth = Math.min(800, window.innerWidth - 40);
+            const cellSize = Math.min(40, maxBoardWidth / boardSize);
+            
+            // Tạo cells
+            for (let i = 0; i < boardSize * boardSize; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.style.width = `${cellSize}px`;
+                cell.style.height = `${cellSize}px`;
+                cell.addEventListener('click', () => handleCellClick(cell));
+                board.appendChild(cell);
             }
         }
         
-        // Kiểm tra thắng thua (đơn giản - cần cải tiến)
+        // Xử lý khi click vào ô
+        function handleCellClick(cell) {
+            if (!gameActive || cell.textContent !== '') return;
+            
+            cell.textContent = currentPlayer;
+            cell.classList.add(currentPlayer.toLowerCase());
+            
+            // Kiểm tra thắng thua
+            if (checkWin()) {
+                setTimeout(() => {
+                    alert(`Người chơi ${currentPlayer} thắng!`);
+                    gameActive = false;
+                }, 100);
+                return;
+            }
+            
+            // Đổi lượt
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            
+            // Nếu chơi với máy
+           /* 
+            if (gameMode === 'computer' && currentPlayer === 'O' && gameActive) {
+                setTimeout(computerMove, 500);
+            }
+                */
+        }
+
+>>>>>>> aa83a93716d8f561d4bab4431f78289b70fd4dac
+        
+        // Máy đánh (AI đơn giản)
+       
+
+
+
+        
+        // Kiểm tra thắng thua
         function checkWin() {
-            // Triển khai logic kiểm tra thắng thua thực tế
-            // Ở đây chỉ là placeholder
+            const cells = document.querySelectorAll('.cell');
+            const size = boardSize;
+            
+            // Chuyển thành mảng 2D
+            const grid = [];
+            for (let i = 0; i < size; i++) {
+                grid.push(Array.from(cells).slice(i * size, (i + 1) * size));
+            }
+            
+            // Kiểm tra hàng ngang, dọc, chéo
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    if (!grid[i][j].textContent) continue;
+                    
+                    // Kiểm tra hàng ngang (5 ô liên tiếp)
+                    if (j <= size - 5) {
+                        let win = true;
+                        for (let k = 1; k < 5; k++) {
+                            if (grid[i][j].textContent !== grid[i][j + k].textContent) {
+                                win = false;
+                                break;
+                            }
+                        }
+                        if (win) return true;
+                    }
+                    
+                    // Kiểm tra hàng dọc
+                    if (i <= size - 5) {
+                        let win = true;
+                        for (let k = 1; k < 5; k++) {
+                            if (grid[i][j].textContent !== grid[i + k][j].textContent) {
+                                win = false;
+                                break;
+                            }
+                        }
+                        if (win) return true;
+                    }
+                    
+                    // Kiểm tra chéo phải
+                    if (i <= size - 5 && j <= size - 5) {
+                        let win = true;
+                        for (let k = 1; k < 5; k++) {
+                            if (grid[i][j].textContent !== grid[i + k][j + k].textContent) {
+                                win = false;
+                                break;
+                            }
+                        }
+                        if (win) return true;
+                    }
+                    
+                    // Kiểm tra chéo trái
+                    if (i <= size - 5 && j >= 4) {
+                        let win = true;
+                        for (let k = 1; k < 5; k++) {
+                            if (grid[i][j].textContent !== grid[i + k][j - k].textContent) {
+                                win = false;
+                                break;
+                            }
+                        }
+                        if (win) return true;
+                    }
+                }
+            }
+            
             return false;
         }
         
+
+
+
+
         // Sự kiện nút đổi giao diện
         document.getElementById('themeBtn').addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
@@ -122,7 +362,7 @@
         document.getElementById('resetBtn').addEventListener('click', () => {
             currentPlayer = 'X';
             gameActive = true;
-            createBoard(boardSize);
+            createBoard();
         });
         
         // Sự kiện nút về trang chủ
@@ -130,8 +370,26 @@
             window.location.href = 'index.html';
         });
         
-        // Khởi tạo game
-        createBoard(boardSize);
+
+
+
+
+        // Khởi tạo game khi tải trang
+        window.addEventListener('load', () => {
+            createBoard();
+            
+            // Xử lý responsive khi thay đổi kích thước màn hình
+            window.addEventListener('resize', () => {
+                const cells = document.querySelectorAll('.cell');
+                const maxBoardWidth = Math.min(800, window.innerWidth - 40);
+                const cellSize = Math.min(40, maxBoardWidth / boardSize);
+                
+                cells.forEach(cell => {
+                    cell.style.width = `${cellSize}px`;
+                    cell.style.height = `${cellSize}px`;
+                });
+            });
+        });
     </script>
 </body>
 </html>
