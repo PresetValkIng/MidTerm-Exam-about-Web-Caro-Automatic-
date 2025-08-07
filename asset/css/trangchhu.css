@@ -180,16 +180,6 @@ input[type="text"] {
             background-color: #f8f9fa;
         }
         
-        .cell.x {
-            color: #4285f4;
-            font-weight: bold;
-        }
-        
-        .cell.o {
-            color: #ea4335;
-            font-weight: bold;
-        }
-        
         .controls {
             margin-top: 20px;
             display: flex;
