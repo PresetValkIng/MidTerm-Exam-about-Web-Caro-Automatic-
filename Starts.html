@@ -77,10 +77,10 @@
             color: #3fe780;
         }
         .light-mode .cell.x{
-            color: #222;
+            color: #dc610f;
         }
         .light-mode .cell.o {
-            color: #222;
+            color: #d1ea14;
         }
         .controls {
             margin-top: 20px;
@@ -129,16 +129,12 @@
 .light-mode #board {
    
      background-image: url('asset/Images/anh5.jpg');
-    backdrop-filter: brightness(0.9); /* làm tối nhẹ ảnh nền */
+    backdrop-filter: brightness(0.4); /* làm tối nhẹ ảnh nền */
 }
-
-
 
 .light-mode .cell:hover {
     background-color: #9b3b3b;
 }
-
-
 
 /*  CHẾ ĐỘ TỐI */
 body.dark-mode {
@@ -219,40 +215,6 @@ body.dark-mode {
         // Hiển thị thông tin người chơi
         playerInfo.textContent = `${playerName} - Chế độ: ${gameMode === 'human' ? '2 người' : 'Máy'}`;
         
-        // Hàm tạo bàn cờ
-        function createBoard(size) {
-         board.innerHTML = ''; // xóa bàn cũ
-         board.classList.remove('dark');
-         board.classList.add('light');
-            for (let row = 0; row < size; row++) {
-                for (let col = 0; col < size; col++) {
-            const cell = document.createElement('div');
-            cell.className = 'cell';
-            cell.style.display = 'inline-block';   // đứng cạnh nhau
-            cell.style.width = '30px';
-            cell.style.height = '30px';
-            cell.style.border = '1px solid #aaa';
-            cell.style.textAlign = 'center';
-            cell.style.verticalAlign = 'middle';
-            cell.style.lineHeight = '30px'; // căn giữa chữ X/O
-
-            // click để đánh X/O
-            cell.addEventListener('click', () => {
-                if (!cell.textContent) {
-                cell.textContent = currentPlayer;
-                    cell.classList.add(currentPlayer.toLowerCase());
-                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                }
-            });
-
-          board.appendChild(cell);
-        }
-        // xuống dòng sau mỗi hàng
-        board.appendChild(document.createElement('br'));
-    }
-
-  board.style.display = 'block';
-}
         playerInfo.textContent = `${playerName} - Chế độ: ${gameMode === 'human' ? '2 người' : 'Máy'} - Bàn cờ: ${boardSize}x${boardSize}`;
     
 
@@ -298,20 +260,40 @@ body.dark-mode {
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             
             // Nếu chơi với máy
-           /* 
+           
             if (gameMode === 'computer' && currentPlayer === 'O' && gameActive) {
                 setTimeout(computerMove, 500);
             }
-                */
+            
         }
 
         
+    
         // Máy đánh (AI đơn giản)
-       
+    function computerMove() {
+    const cells = document.querySelectorAll('.cell');
+    const emptyCells = Array.from(cells).filter(cell => cell.textContent === '');
 
+    if (!emptyCells.length) return;
 
+    // Máy chọn ô ngẫu nhiên
+    const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+    randomCell.textContent = currentPlayer;
+    randomCell.classList.add(currentPlayer.toLowerCase());
 
-        
+    // Kiểm tra thắng
+    if (checkWin()) {
+        setTimeout(() => {
+            alert(`Máy (${currentPlayer}) thắng!`);
+            gameActive = false;
+        }, 100);
+        return;
+    }
+
+    // Đổi lượt về người chơi
+    currentPlayer = 'X';
+}
+
         // Kiểm tra thắng thua
         function checkWin() {
             const cells = document.querySelectorAll('.cell');
