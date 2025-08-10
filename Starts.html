@@ -24,10 +24,13 @@
     </style>
 </head>
 <body>
-    <div class="game-header">
-        <h1>CARO TAM THÁI TỬ</h1>
-        <div class="player-info" id="playerInfo"></div>
+    <h1>CARO TAM THÁI TỬ</h1>
+   <div class="game-header">
+    <div class="player-info" id="playerInfo"></div>
+    <div class="game-instruction">
+         <p><strong>X</strong> : Chuột phải  - <strong>O</strong>: Chuột trái  </p>
     </div>
+</div>
     
     <div class="game-container">
         <div id="board"></div>
@@ -57,29 +60,48 @@
         playerInfo.textContent = `${playerName} - Chế độ: ${gameMode === 'human' ? '2 người' : 'Máy'} - Bàn cờ: ${boardSize}x${boardSize}`;
     
 
-        // Hàm tạo bàn cờ với kích thước linh hoạt
-        function createBoard() {
-            board.innerHTML = '';
+
+// Hàm tạo bàn cờ với kích thước linh hoạt
+function createBoard() {
+    board.innerHTML = '';
+    
+    // Thiết lập grid
+    board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
+    
+    // Tự động tính kích thước ô
+    const maxBoardWidth = Math.min(800, window.innerWidth - 40);
+    const cellSize = Math.min(40, maxBoardWidth / boardSize);
+    
+    // Tạo cells với cả 2 sự kiện chuột
+    for (let i = 0; i < boardSize * boardSize; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.style.width = `${cellSize}px`;
+        cell.style.height = `${cellSize}px`;
+        
+        // Chuột trái (O)
+        cell.addEventListener('click', (e) => {
+            if (gameMode === 'human') 
+        {
             
-            // Thiết lập grid
-            board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
-            
-            // Tự động tính kích thước ô
-            const maxBoardWidth = Math.min(800, window.innerWidth - 40);
-            const cellSize = Math.min(40, maxBoardWidth / boardSize);
-            
-            // Tạo cells
-            for (let i = 0; i < boardSize * boardSize; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'cell';
-                cell.style.width = `${cellSize}px`;
-                cell.style.height = `${cellSize}px`;
-                cell.addEventListener('click', () => handleCellClick(cell));
-                board.appendChild(cell);
+                handleCellClick(cell, 'O');
             }
-        }
-         // Kiểm tra thắng thua
-        function checkWin() {
+        });
+        
+        // Chuột phải (X) - Ngăn menu ngữ cảnh
+        cell.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            if (gameMode === 'human') 
+            { 
+                handleCellClick(cell, 'X');
+            }
+        });
+        
+        board.appendChild(cell);
+    }
+}
+// Kiểm tra thắng thua
+function checkWin() {
             const cells = document.querySelectorAll('.cell');
             const size = boardSize;
             
@@ -159,41 +181,39 @@ function checkDraw() {
     return !checkWin();
 }
 // Xử lý khi click vào ô
-    function handleCellClick(cell) 
-    {
-            if (!gameActive || cell.textContent !== '') 
-            return;
-            
-            cell.textContent = currentPlayer;
-            cell.classList.add(currentPlayer.toLowerCase());
-            
-            // Kiểm tra thắng thua
-            if (checkWin()) 
-            {
-                setTimeout(() => {alert(`Người chơi ${currentPlayer} thắng!`);gameActive = false;}, 100);
-                return ;
-            } else if (checkDraw()) 
-            {
-                setTimeout(() => {alert("Hòa!");gameActive = false;}, 100);
-                return ;
-            }
-               // Đổi lượt
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-             // Nếu chơi với máy 
-            if (gameMode === 'computer' && currentPlayer === 'O' && gameActive) 
-            {
-                setTimeout(computerMove, 200);
-            }
-        }
-            
-  
-
+function handleCellClick(cell, player) {
+    if (!gameActive || cell.textContent !== '') return;
+    
+    cell.textContent = player;
+    cell.classList.add(player.toLowerCase());
+    
+    if (checkWin()) {
+        setTimeout(() => {
+            alert(`Người chơi ${player} thắng!`);
+            gameActive = false;
+        }, 100);
+        return;
+    } else if (checkDraw()) {
+        setTimeout(() => {
+            alert("Hòa!");
+            gameActive = false;
+        }, 100);
+        return;
+    }
+    
+    // CHỈ ĐỔI LƯỢT NẾU CHƠI VỚI MÁY
+    if (gameMode === 'computer') {
+        currentPlayer = 'O'; // Máy luôn là O
+        setTimeout(computerMove, 200);
+    }
+}
 
 
 
 
      // Máy đánh (AI đơn giản nhưng chỉ chọn quanh X)
-     function computerMove() {
+function computerMove() 
+{
     // Lấy toàn bộ các ô trong bàn cờ (có class 'cell')
     const cells = document.querySelectorAll('.cell');
 
@@ -264,6 +284,9 @@ function checkDraw() {
     // Đổi lượt lại cho người chơi
     currentPlayer = 'X';
 }
+
+
+
 
         // Gán mặc định là dark-mode
             document.body.classList.add('dark-mode');
