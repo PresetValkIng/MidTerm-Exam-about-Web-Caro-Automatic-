@@ -98,14 +98,15 @@
             // Tự động tính kích thước ô
             const maxBoardWidth = Math.min(800, window.innerWidth - 40);
             const cellSize = Math.min(40, maxBoardWidth / boardSize);
-            
+
             // Tạo cells với cả 2 sự kiện chuột
             for (let i = 0; i < boardSize * boardSize; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
                 cell.style.width = `${cellSize}px`;
                 cell.style.height = `${cellSize}px`;
-                
+                //điều chỉnh sự kiện dùng chuột khi gameMode=human
+                if (gameMode==='human') {
                 // Chuột trái (O)
                 cell.addEventListener('click', (e) => {
                     if (gameMode === 'human') {
@@ -132,6 +133,21 @@
                         lastPlayer = 'X';
                     }
                 });
+            } 
+            //điều chỉnh sự kiện dùng chuột khi gameMode=human, vô hiệu chuột trái chỉ dùng chuột phải
+            else if (gameMode==='computer') {
+                // Chế độ máy: Chỉ cho phép chuột phải (X)
+            cell.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                handleCellClick(cell, 'X');
+                lastPlayer = 'X';
+            });
+            // Chuột trái bị vô hiệu hóa
+            cell.addEventListener('click', (e) => {
+                e.preventDefault();
+                showWaitingMessage('X'); // Thông báo chỉ được dùng chuột phải
+            });
+            }
                 
                 board.appendChild(cell);
             }
