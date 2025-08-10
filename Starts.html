@@ -20,8 +20,9 @@
                 padding: 10px;
                 transition: background 0.3s;
               }
-
-    </style>
+        
+        </style>
+        
 </head>
 <body>
     <h1>CARO TAM THÁI TỬ</h1>
@@ -83,9 +84,8 @@ function createBoard() {
         cell.addEventListener('click', (e) => {
             if (gameMode === 'human') 
         {
-            
                 handleCellClick(cell, 'O');
-            }
+        }
         });
         
         // Chuột phải (X) - Ngăn menu ngữ cảnh
@@ -101,6 +101,137 @@ function createBoard() {
     }
 }
 // Kiểm tra thắng thua
+function checkWin() {
+            // Thiết lập grid
+            board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
+            
+            // Tự động tính kích thước ô
+            const maxBoardWidth = Math.min(800, window.innerWidth - 40);
+            const cellSize = Math.min(40, maxBoardWidth / boardSize);
+            
+            // Tạo cells
+            for (let i = 0; i < boardSize * boardSize; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.style.width = `${cellSize}px`;
+                cell.style.height = `${cellSize}px`;
+                cell.addEventListener('click', () => handleCellClick(cell));
+                board.appendChild(cell);
+                // Bắt chuột trái và chuột phải
+        cell.addEventListener('mousedown', (e) => handleMouseClick(e, cell));
+
+        // Ngăn menu chuột phải
+        cell.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        board.appendChild(cell);
+            }
+        }
+        
+        function handleMouseClick(e, cell) {
+    if (!gameActive || cell.textContent !== '') return;
+
+    if (e.button === 0) { 
+        // Chuột trái -> X
+        cell.textContent = 'X';
+        cell.classList.add('x');
+    } else if (e.button === 2) { 
+        // Chuột phải -> O
+        cell.textContent = 'O';
+        cell.classList.add('o');
+    }
+
+    if (checkWin()) {
+        setTimeout(() => {
+            alert(`Người chơi ${cell.textContent} thắng!`);
+            gameActive = false;
+        }, 100);
+    } else if (checkDraw()) {
+        setTimeout(() => {
+            alert("Hòa!");
+            gameActive = false;
+        }, 100);
+    }
+}
+        
+
+     // Máy đánh (AI đơn giản nhưng chỉ chọn quanh X)
+     function computerMove() {
+    // Lấy toàn bộ các ô trong bàn cờ (có class 'cell')
+    const cells = document.querySelectorAll('.cell');
+
+    // Tính kích thước bàn (cạnh bàn cờ)
+    // Ví dụ: nếu có 225 ô -> sqrt(225) = 15 => bàn 15x15
+    const size = Math.sqrt(cells.length);
+
+    // Mảng lưu vị trí (row, col) của tất cả các quân X trên bàn
+    let xPositions = [];
+    cells.forEach((cell, index) => {
+        if (cell.textContent === 'X') {
+            // Tính hàng và cột dựa vào chỉ số index
+            const row = Math.floor(index / size); // hàng
+            const col = index % size;             // cột
+            xPositions.push({ row, col });        // thêm vào danh sách
+        }
+    });
+
+    // Mảng chứa các ô trống trong phạm vi 9 ô xung quanh mỗi quân X
+    let candidateCells = [];
+
+    // Duyệt qua từng vị trí X
+    xPositions.forEach(pos => {
+        // dr: độ lệch hàng (-1, 0, 1)
+        for (let dr = -1; dr <= 1; dr++) {
+            // dc: độ lệch cột (-1, 0, 1)
+            for (let dc = -1; dc <= 1; dc++) {
+                const r = pos.row + dr; // hàng mới
+                const c = pos.col + dc; // cột mới
+
+                // Kiểm tra ô mới có nằm trong bàn cờ không
+                if (r >= 0 && r < size && c >= 0 && c < size) {
+                    const idx = r * size + c; // đổi hàng+cột về index 1D
+
+                    // Nếu ô đó đang trống => thêm vào danh sách ứng viên
+                    if (cells[idx].textContent === '') {
+                        candidateCells.push(cells[idx]);
+                    }
+                }
+            }
+        }
+    });
+
+    // Nếu không tìm được ô quanh X => fallback chọn ngẫu nhiên toàn bàn
+    if (candidateCells.length === 0) {
+        candidateCells = Array.from(cells).filter(cell => cell.textContent === '');
+    }
+
+    // Nếu bàn đã hết ô trống => thoát
+    if (!candidateCells.length) return;
+
+    // Chọn ngẫu nhiên 1 ô trong danh sách ứng viên
+    const randomCell = candidateCells[Math.floor(Math.random() * candidateCells.length)];
+
+    // Đánh quân của máy vào ô đó
+    randomCell.textContent = currentPlayer;
+    randomCell.classList.add(currentPlayer.toLowerCase());
+
+    // Kiểm tra thắng
+    if (checkWin()) {
+        setTimeout(() => {
+            alert(`Máy (${currentPlayer}) thắng!`);
+            gameActive = false;
+        }, 100);
+        } else if (checkDraw()) {
+    setTimeout(() => {
+        alert("Hòa!");
+        gameActive = false;
+        }, 100);
+    }
+
+    // Đổi lượt lại cho người chơi
+    currentPlayer = 'X';
+}
+
+        // Kiểm tra thắng thua
 function checkWin() {
             const cells = document.querySelectorAll('.cell');
             const size = boardSize;
@@ -287,18 +418,37 @@ function computerMove()
 
 
 
-
+function checkDraw() {
+        const cells = document.querySelectorAll('.cell');
+        // Nếu còn ô trống -> chưa hòa
+        for (let cell of cells) {
+            if (cell.textContent === '') {
+                return false;
+            }
+        }
+        // Nếu đầy nhưng không có ai thắng
+        return !checkWin();
+    }
         // Gán mặc định là dark-mode
             document.body.classList.add('dark-mode');
 
         // Sự kiện nút đổi giao diện
-        document.getElementById('themeBtn').addEventListener('click', () => {document.body.classList.toggle('light-mode');document.body.classList.toggle('dark-mode');});
+        document.getElementById('themeBtn').addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+              document.body.classList.toggle('dark-mode');
+        });
         
         // Sự kiện nút chơi lại
-        document.getElementById('resetBtn').addEventListener('click', () => {currentPlayer = 'X';gameActive = true;createBoard();});
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            currentPlayer = 'X';
+            gameActive = true;
+            createBoard();
+        });
         
         // Sự kiện nút về trang chủ
-        document.getElementById('backBtn').addEventListener('click', () => {window.location.href = 'index.html';});
+        document.getElementById('backBtn').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
         // Khởi tạo game khi tải trang
         window.addEventListener('load', () => {
             createBoard();
