@@ -32,7 +32,7 @@
          <p><strong>X</strong> : Chuột phải  - <strong>O</strong>: Chuột trái  </p>
     </div>
 </div>
-    <div class="options-panel" id="optionsPanel" >
+    <div class="options-panel" id="optionsPanel" style="display: none;" >
         <h2>Chọn độ khó</h2>
         <select id="computerMode">
            <option value="" selected disabled >Chọn chế độ</option>
@@ -93,6 +93,13 @@
             msg.style.display = 'block';
             setTimeout(() => msg.style.display = 'none', 1500);
         }
+        
+         const optionsPanel = document.getElementById('optionsPanel');
+             if (gameMode === 'computer') {
+                   optionsPanel.style.display = 'block'; // Hiện panel chọn độ khó
+            } else {
+                 optionsPanel.style.display = 'none'; // Ẩn panel
+         }
 
         // Hàm tạo bàn cờ với kích thước linh hoạt
         function createBoard() {
@@ -262,7 +269,7 @@
             
             // Nếu chơi với máy và vừa đánh X
             if (gameMode === 'computer' && player === 'X') {
-                setTimeout(computerMove, 500);
+                computerMove();
             }
         }
 
@@ -319,7 +326,7 @@
                 }, 100);
             }
         }
-
+         
         // Gán mặc định là dark-mode
         document.body.classList.add('dark-mode');
 

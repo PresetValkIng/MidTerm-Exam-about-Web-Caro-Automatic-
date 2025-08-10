@@ -196,7 +196,6 @@ body.dark-mode {
           z-index: 1000; /* Đảm bảo panel hiển thị trên cùng */
           width: 300px;
           max-width: 90%;
-          cursor: pointer;
           text-align: center;
       }
 button {
