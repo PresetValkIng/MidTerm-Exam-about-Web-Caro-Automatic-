@@ -60,6 +60,8 @@
         const playerName = gameSettings?.player || "Người chơi";
         const boardSize = gameSettings?.size || 15;
         const gameMode = gameSettings?.mode || "human";
+       
+
         
         // Khởi tạo biến game
         let currentPlayer = 'X';
@@ -68,6 +70,17 @@
         const board = document.getElementById('board');
         const playerInfo = document.getElementById('playerInfo');
         
+         let computerDifficulty = null; // lưu chế độ chơi
+        document.getElementById('checkEH').addEventListener('click', () => {
+            const mode = document.getElementById('computerMode').value;
+            if (!mode) {
+                alert("Hãy chọn chế độ trước!");
+                return;
+            }
+            computerDifficulty = mode; // lưu lại chế độ
+            alert("Đã chọn chế độ: " + (mode === 'easy' ? 'Dễ' : 'Khó'));
+        });
+
         // Hiển thị thông tin người chơi
         playerInfo.textContent = `${playerName} - Chế độ: ${gameMode === 'human' ? '2 người' : 'Máy'}`;
         
@@ -215,6 +228,16 @@
             }
             return !checkWin();
         }
+        function computerMove() {
+            if (computerDifficulty === 'easy') {
+                computerMoveEasy(); // hàm AI dễ
+            } else if (computerDifficulty === 'hard') {
+                aiHardMove(); // hàm AI khó
+            } else {
+                console.warn("Chưa chọn độ khó, AI mặc định là easy");
+                aiEasyMove();
+            }
+        }
 
         // Xử lý khi click vào ô
         function handleCellClick(cell, player) {
@@ -244,7 +267,7 @@
         }
 
         // Máy đánh
-        function computerMove() {
+        function computerMoveEasy() {
             if (!gameActive) return;
             
             const cells = document.querySelectorAll('.cell');
