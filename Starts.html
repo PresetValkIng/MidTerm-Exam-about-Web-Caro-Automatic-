@@ -239,118 +239,7 @@ body.dark-mode {
                 board.appendChild(cell);
             }
         }
-        
-        // Xử lý khi click vào ô
-        function handleCellClick(cell) {
-            if (!gameActive || cell.textContent !== '') return;
-            
-            cell.textContent = currentPlayer;
-            cell.classList.add(currentPlayer.toLowerCase());
-            
-            // Kiểm tra thắng thua
-            if (checkWin()) {
-                setTimeout(() => {
-                    alert(`Người chơi ${currentPlayer} thắng!`);
-                    gameActive = false;
-                }, 100);
-            } else if (checkDraw()) {
-                setTimeout(() => {
-                    alert("Hòa!");
-                    gameActive = false;
-                }, 100);
-                }
-            
-            // Đổi lượt
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            
-            // Nếu chơi với máy
-           
-            if (gameMode === 'computer' && currentPlayer === 'O' && gameActive) {
-                setTimeout(computerMove, 500);
-            }
-            
-        }
-
-        
-    
-     // Máy đánh (AI đơn giản nhưng chỉ chọn quanh X)
-     function computerMove() {
-    // Lấy toàn bộ các ô trong bàn cờ (có class 'cell')
-    const cells = document.querySelectorAll('.cell');
-
-    // Tính kích thước bàn (cạnh bàn cờ)
-    // Ví dụ: nếu có 225 ô -> sqrt(225) = 15 => bàn 15x15
-    const size = Math.sqrt(cells.length);
-
-    // Mảng lưu vị trí (row, col) của tất cả các quân X trên bàn
-    let xPositions = [];
-    cells.forEach((cell, index) => {
-        if (cell.textContent === 'X') {
-            // Tính hàng và cột dựa vào chỉ số index
-            const row = Math.floor(index / size); // hàng
-            const col = index % size;             // cột
-            xPositions.push({ row, col });        // thêm vào danh sách
-        }
-    });
-
-    // Mảng chứa các ô trống trong phạm vi 9 ô xung quanh mỗi quân X
-    let candidateCells = [];
-
-    // Duyệt qua từng vị trí X
-    xPositions.forEach(pos => {
-        // dr: độ lệch hàng (-1, 0, 1)
-        for (let dr = -1; dr <= 1; dr++) {
-            // dc: độ lệch cột (-1, 0, 1)
-            for (let dc = -1; dc <= 1; dc++) {
-                const r = pos.row + dr; // hàng mới
-                const c = pos.col + dc; // cột mới
-
-                // Kiểm tra ô mới có nằm trong bàn cờ không
-                if (r >= 0 && r < size && c >= 0 && c < size) {
-                    const idx = r * size + c; // đổi hàng+cột về index 1D
-
-                    // Nếu ô đó đang trống => thêm vào danh sách ứng viên
-                    if (cells[idx].textContent === '') {
-                        candidateCells.push(cells[idx]);
-                    }
-                }
-            }
-        }
-    });
-
-    // Nếu không tìm được ô quanh X => fallback chọn ngẫu nhiên toàn bàn
-    if (candidateCells.length === 0) {
-        candidateCells = Array.from(cells).filter(cell => cell.textContent === '');
-    }
-
-    // Nếu bàn đã hết ô trống => thoát
-    if (!candidateCells.length) return;
-
-    // Chọn ngẫu nhiên 1 ô trong danh sách ứng viên
-    const randomCell = candidateCells[Math.floor(Math.random() * candidateCells.length)];
-
-    // Đánh quân của máy vào ô đó
-    randomCell.textContent = currentPlayer;
-    randomCell.classList.add(currentPlayer.toLowerCase());
-
-    // Kiểm tra thắng
-    if (checkWin()) {
-        setTimeout(() => {
-            alert(`Máy (${currentPlayer}) thắng!`);
-            gameActive = false;
-        }, 100);
-        } else if (checkDraw()) {
-    setTimeout(() => {
-        alert("Hòa!");
-        gameActive = false;
-        }, 100);
-    }
-
-    // Đổi lượt lại cho người chơi
-    currentPlayer = 'X';
-}
-
-        // Kiểm tra thắng thua
+         // Kiểm tra thắng thua
         function checkWin() {
             const cells = document.querySelectorAll('.cell');
             const size = boardSize;
@@ -430,26 +319,119 @@ function checkDraw() {
     // Nếu đầy nhưng không có ai thắng
     return !checkWin();
 }
+// Xử lý khi click vào ô
+    function handleCellClick(cell) 
+    {
+            if (!gameActive || cell.textContent !== '') 
+            return;
+            
+            cell.textContent = currentPlayer;
+            cell.classList.add(currentPlayer.toLowerCase());
+            
+            // Kiểm tra thắng thua
+            if (checkWin()) 
+            {
+                setTimeout(() => {alert(`Người chơi ${currentPlayer} thắng!`);gameActive = false;}, 100);
+                return ;
+            } else if (checkDraw()) 
+            {
+                setTimeout(() => {alert("Hòa!");gameActive = false;}, 100);
+                return ;
+            }
+               // Đổi lượt
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+             // Nếu chơi với máy 
+            if (gameMode === 'computer' && currentPlayer === 'O' && gameActive) 
+            {
+                setTimeout(computerMove, 200);
+            }
+        }
+            
+  
+     // Máy đánh (AI đơn giản nhưng chỉ chọn quanh X)
+     function computerMove() {
+    // Lấy toàn bộ các ô trong bàn cờ (có class 'cell')
+    const cells = document.querySelectorAll('.cell');
+
+    // Tính kích thước bàn (cạnh bàn cờ)
+    // Ví dụ: nếu có 225 ô -> sqrt(225) = 15 => bàn 15x15
+    const size = Math.sqrt(cells.length);
+
+    // Mảng lưu vị trí (row, col) của tất cả các quân X trên bàn
+    let xPositions = [];
+    cells.forEach((cell, index) => {
+        if (cell.textContent === 'X') {
+            // Tính hàng và cột dựa vào chỉ số index
+            const row = Math.floor(index / size); // hàng
+            const col = index % size;             // cột
+            xPositions.push({ row, col });        // thêm vào danh sách
+        }
+    });
+
+    // Mảng chứa các ô trống trong phạm vi 9 ô xung quanh mỗi quân X
+    let candidateCells = [];
+
+    // Duyệt qua từng vị trí X
+    xPositions.forEach(pos => {
+        // dr: độ lệch hàng (-1, 0, 1)
+        for (let dr = -1; dr <= 1; dr++) {
+            // dc: độ lệch cột (-1, 0, 1)
+            for (let dc = -1; dc <= 1; dc++) {
+                const r = pos.row + dr; // hàng mới
+                const c = pos.col + dc; // cột mới
+
+                // Kiểm tra ô mới có nằm trong bàn cờ không
+                if (r >= 0 && r < size && c >= 0 && c < size) {
+                    const idx = r * size + c; // đổi hàng+cột về index 1D
+
+                    // Nếu ô đó đang trống => thêm vào danh sách ứng viên
+                    if (cells[idx].textContent === '') {
+                        candidateCells.push(cells[idx]);
+                    }
+                }
+            }
+        }
+    });
+
+    // Nếu không tìm được ô quanh X => fallback chọn ngẫu nhiên toàn bàn
+    if (candidateCells.length === 0) {
+        candidateCells = Array.from(cells).filter(cell => cell.textContent === '');
+    }
+
+    // Nếu bàn đã hết ô trống => thoát
+    if (!candidateCells.length) return;
+
+    // Chọn ngẫu nhiên 1 ô trong danh sách ứng viên
+    const randomCell = candidateCells[Math.floor(Math.random() * candidateCells.length)];
+
+    // Đánh quân của máy vào ô đó
+    randomCell.textContent = currentPlayer;
+    randomCell.classList.add(currentPlayer.toLowerCase());
+
+    // Kiểm tra thắng khi đánh với máy
+    if (checkWin())
+    {
+        setTimeout(() => {alert(`Máy (${currentPlayer}) thắng!`); gameActive = false;}   , 100);
+    } else if (checkDraw()) 
+    {
+    setTimeout(() => {alert("Hòa!");gameActive = false;}, 100);
+    }
+
+    // Đổi lượt lại cho người chơi
+    currentPlayer = 'X';
+}
+
         // Gán mặc định là dark-mode
             document.body.classList.add('dark-mode');
 
         // Sự kiện nút đổi giao diện
-        document.getElementById('themeBtn').addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-              document.body.classList.toggle('dark-mode');
-        });
+        document.getElementById('themeBtn').addEventListener('click', () => {document.body.classList.toggle('light-mode');document.body.classList.toggle('dark-mode');});
         
         // Sự kiện nút chơi lại
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            currentPlayer = 'X';
-            gameActive = true;
-            createBoard();
-        });
+        document.getElementById('resetBtn').addEventListener('click', () => {currentPlayer = 'X';gameActive = true;createBoard();});
         
         // Sự kiện nút về trang chủ
-        document.getElementById('backBtn').addEventListener('click', () => {
-            window.location.href = 'index.html';
-        });
+        document.getElementById('backBtn').addEventListener('click', () => {window.location.href = 'index.html';});
         // Khởi tạo game khi tải trang
         window.addEventListener('load', () => {
             createBoard();
