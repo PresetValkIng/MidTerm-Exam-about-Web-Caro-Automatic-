@@ -199,3 +199,6 @@ body.dark-mode {
           cursor: pointer;
           text-align: center;
       }
+button {
+    align-items: center;
+}
