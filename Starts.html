@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="asset/css/trangchhu.css"/>
+    <link rel="stylesheet" href="asset/css/starts.css"/>
     <title>Game cờ Caro của tam thái tử - Bắt đầu !</title>
     <style>
        body {
@@ -21,168 +21,8 @@
                 transition: background 0.3s;
               }
         
+        </style>
         
-        .game-header {
-            text-align: center;
-            margin-bottom: 20px;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
-        
-        .game-container {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            width: fit-content;
-            max-width: 90%;
-        }
-        
-       #board {
-    display: grid;
-    grid-template-columns: repeat(var(--size), 1fr);
-    gap: 2px;
-    background-size: cover;
-    background-position: center;
-    border: none;
-    position: relative;
-    z-index: 2;
-}
-.cell {
-    background-color: rgba(255, 255, 255, 0); /* hoàn toàn trong suốt */
-    border: 1px solid rgba(255, 255, 255, 0.4); /* viền trắng nhạt để hiện lưới */
-    backdrop-filter: blur(1px); /* tuỳ chọn: mờ nhẹ đằng sau cho dễ nhìn */
-    cursor: pointer;
-    font-size: 32px;
-    color: white; /* chữ nổi bật trên nền ảnh */
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 1/1;
-    transition: all 0.2s ease;
-}
-
-.cell:hover {
-    border-color: white;
-    background-color: rgba(255, 255, 255, 0.1); /* hover sáng nhẹ */
-}
-
-        
-        .dark-mode .cell.x {
-            color: #ef1313;
-        }
-        
-        .dark-mode .cell.o {
-            color: #3fe780;
-        }
-        .light-mode .cell.x{
-            color: #dc610f;
-        }
-        .light-mode .cell.o {
-            color: #d1ea14;
-        }
-        .controls {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        button {
-            padding: 8px 16px;
-            background-color: #4285F4;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-        
-        button:hover {
-            background-color: #3367D6;
-            transform: translateY(-2px);
-        }
-        
-        .player-info {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #333;
-            background-color: rgba(255, 255, 255, 0.7);
-            padding: 8px 15px;
-            border-radius: 20px;
-        }
-  
- body.light-mode {
-    
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: #222;
-    transition: all 0.3s;
- }
-
-
-
-.light-mode #board {
-   
-     background-image: url('asset/Images/anh5.jpg');
-    backdrop-filter: brightness(0.4); /* làm tối nhẹ ảnh nền */
-}
-
-.light-mode .cell:hover {
-    background-color: #9b3b3b;
-}
-
-/*  CHẾ ĐỘ TỐI */
-body.dark-mode {
-    background-color: #9ca3ae;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: #ba1a1a;
-}
-
-
-
-.dark-mode #board {
-     background-image: url('asset/Images/anhcoco1.jpg');
-    
-}
-
-.dark-mode .cell {
-    background-color: transparent;
-    border: 1px solid white;  /* Viền trắng nếu nền tối */
-}
-
-.dark-mode .cell:hover {
-    background-color: #4e2a2a;
-}
-
-.dark-mode .player-info {
-    background-color: rgba(60, 60, 60, 0.7);
-    color: #eee;
-}
-
-        
-        @media (max-width: 600px) {
-            .cell {
-                font-size: 18px;
-            }
-            
-            .controls {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            button {
-                width: 100%;
-                max-width: 200px;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="game-header">
@@ -237,42 +77,41 @@ body.dark-mode {
                 cell.style.height = `${cellSize}px`;
                 cell.addEventListener('click', () => handleCellClick(cell));
                 board.appendChild(cell);
+                // Bắt chuột trái và chuột phải
+        cell.addEventListener('mousedown', (e) => handleMouseClick(e, cell));
+
+        // Ngăn menu chuột phải
+        cell.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        board.appendChild(cell);
             }
         }
         
-        // Xử lý khi click vào ô
-        function handleCellClick(cell) {
-            if (!gameActive || cell.textContent !== '') return;
-            
-            cell.textContent = currentPlayer;
-            cell.classList.add(currentPlayer.toLowerCase());
-            
-            const playerJustPlayed = currentPlayer; // lưu lại
+        function handleMouseClick(e, cell) {
+    if (!gameActive || cell.textContent !== '') return;
 
-            // Kiểm tra thắng thua
-            if(gameMode === 'human'){
-            if (checkWin()) {
-                setTimeout(() => {
-                    alert(`Người chơi ${playerJustPlayed} thắng!`);
-                    gameActive = false;
-                }, 100);
-            } else if (checkDraw()) {
-                setTimeout(() => {
-                    alert("Hòa!");
-                    gameActive = false;
-                }, 100);
-                }
-            }
-            // Đổi lượt
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            
-            // Nếu chơi với máy
-           
-            if (gameMode === 'computer' && currentPlayer === 'O' && gameActive) {
-                setTimeout(computerMove, 500);
-            }
-            
-        }
+    if (e.button === 0) { 
+        // Chuột trái -> X
+        cell.textContent = 'X';
+        cell.classList.add('x');
+    } else if (e.button === 2) { 
+        // Chuột phải -> O
+        cell.textContent = 'O';
+        cell.classList.add('o');
+    }
+
+    if (checkWin()) {
+        setTimeout(() => {
+            alert(`Người chơi ${cell.textContent} thắng!`);
+            gameActive = false;
+        }, 100);
+    } else if (checkDraw()) {
+        setTimeout(() => {
+            alert("Hòa!");
+            gameActive = false;
+        }, 100);
+    }
+}
         
 
      // Máy đánh (AI đơn giản nhưng chỉ chọn quanh X)
