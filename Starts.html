@@ -256,10 +256,9 @@
                 aiHardMove(); // hàm AI khó
             } else {
                 console.warn("Chưa chọn độ khó, AI mặc định là easy");
-                aiEasyMove();
+                computerMoveEasy();
             }
         }
-
         // Xử lý khi click vào ô
         function handleCellClick(cell, player) {
             if (!gameActive || cell.textContent !== '') return;
