@@ -156,3 +156,26 @@ body.dark-mode {
                 max-width: 200px;
             }
         }
+.square {
+    text-align: center;
+    margin: 10px auto;
+    width: 50%;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 15px; /* Thêm padding để dễ hover */
+    background-color: #0e467e; /* Màu nền mặc định */
+    transition: all 0.3s ease; /* Hiệu ứng mượt mà */
+    cursor: pointer; /* Đổi con trỏ thành bàn tay */
+}
+.options-panel {
+          position: inherit; /* Để cho panel có thể đè lên các thẻ khác */
+          top: 50%; 
+          padding: 20px;
+          border-radius: 15px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.5);
+          z-index: 1000; /* Đảm bảo panel hiển thị trên cùng */
+          width: 300px;
+          max-width: 90%;
+          cursor: pointer;
+          text-align: center;
+      }
