@@ -66,11 +66,11 @@
         // Hiển thị danh sách người chơi khi trang được tải
         displayLeaderboard();
          // Khi nhấn nút Bắt Đầu
-    startButton.addEventListener('click', function() {
-    const name = playerNameInput.value.trim();
-    const gameMode = document.getElementById('gameMode').value;
-    const boardSizeSelect = document.getElementById('boardSize');
-    const size = boardSizeSelect.value;
+        startButton.addEventListener('click', function() {
+        const name = playerNameInput.value.trim();
+        const gameMode = document.getElementById('gameMode').value;
+        const boardSizeSelect = document.getElementById('boardSize');
+        const size = boardSizeSelect.value;
 
     if (name === '') {
         alert('Vui lòng nhập tên!');
