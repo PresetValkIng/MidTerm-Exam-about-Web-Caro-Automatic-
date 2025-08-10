@@ -240,42 +240,39 @@ body.dark-mode {
             }
         }
         
-        // Gán sự kiện cho mỗi ô
-cells.forEach(cell => {
-    // Chuột trái
-    cell.addEventListener('click', e => {
-        handleCellClick(cell, 'X');
-    });
+        // Xử lý khi click vào ô
+        function handleCellClick(cell) {
+            if (!gameActive || cell.textContent !== '') return;
+            
+            cell.textContent = currentPlayer;
+            cell.classList.add(currentPlayer.toLowerCase());
+            
+            const playerJustPlayed = currentPlayer; // lưu lại
 
-    // Chuột phải
-    cell.addEventListener('contextmenu', e => {
-        e.preventDefault(); // Ngăn menu chuột phải
-        handleCellClick(cell, 'O');
-    });
-});
-
-function handleCellClick(cell, symbol) {
-    if (!gameActive || cell.textContent !== '') return;
-
-    cell.textContent = symbol;
-    cell.classList.add(symbol.toLowerCase());
-
-    // Kiểm tra thắng
-    if (checkWin()) {
-        setTimeout(() => {
-            alert(`Người chơi ${symbol} thắng!`);
-            gameActive = false;
-        }, 100);
-    } 
-    // Kiểm tra hòa
-    else if (checkDraw()) {
-        setTimeout(() => {
-            alert("Hòa!");
-            gameActive = false;
-        }, 100);
-    }
-}
-
+            // Kiểm tra thắng thua
+            if(gameMode === 'human'){
+            if (checkWin()) {
+                setTimeout(() => {
+                    alert(`Người chơi ${playerJustPlayed} thắng!`);
+                    gameActive = false;
+                }, 100);
+            } else if (checkDraw()) {
+                setTimeout(() => {
+                    alert("Hòa!");
+                    gameActive = false;
+                }, 100);
+                }
+            }
+            // Đổi lượt
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            
+            // Nếu chơi với máy
+           
+            if (gameMode === 'computer' && currentPlayer === 'O' && gameActive) {
+                setTimeout(computerMove, 500);
+            }
+            
+        }
         
 
      // Máy đánh (AI đơn giản nhưng chỉ chọn quanh X)
