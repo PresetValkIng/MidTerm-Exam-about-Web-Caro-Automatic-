@@ -78,26 +78,34 @@
                 cell.addEventListener('click', () => handleCellClick(cell));
                 board.appendChild(cell);
                 // Bắt chuột trái và chuột phải
-        cell.addEventListener('mousedown', (e) => handleMouseClick(e, cell));
+              cell.addEventListener('mousedown', (e) => handleMouseClick(e, cell));
 
-        // Ngăn menu chuột phải
-        cell.addEventListener('contextmenu', (e) => e.preventDefault());
+                // Ngăn menu chuột phải
+                cell.addEventListener('contextmenu', (e) => e.preventDefault());
 
-        board.appendChild(cell);
+              
             }
         }
         
         function handleMouseClick(e, cell) {
     if (!gameActive || cell.textContent !== '') return;
 
-    if (e.button === 0) { 
-        // Chuột trái -> X
+    if (gameMode === 'human') {
+        if (e.button === 0) { 
+            cell.textContent = 'X';
+            cell.classList.add('x');
+        } else if (e.button === 2) { 
+            cell.textContent = 'O';
+            cell.classList.add('o');
+        }
+    } else { // chế độ máy
+        if (e.button !== 0) return; // chỉ cho chuột trái
         cell.textContent = 'X';
         cell.classList.add('x');
-    } else if (e.button === 2) { 
-        // Chuột phải -> O
-        cell.textContent = 'O';
-        cell.classList.add('o');
+        currentPlayer = 'O';
+        if (!checkWin() && !checkDraw()) {
+            setTimeout(computerMove, 300);
+        }
     }
 
     if (checkWin()) {
@@ -112,6 +120,7 @@
         }, 100);
     }
 }
+
         
 
      // Máy đánh (AI đơn giản nhưng chỉ chọn quanh X)
