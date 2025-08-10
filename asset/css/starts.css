@@ -105,7 +105,7 @@
 
 
 .light-mode #board {
-    background-image: url('../asset/Images/anh5.jpg');
+    background-image: url('../Images/anh5.jpg');
     backdrop-filter: brightness(0.4); /* làm tối nhẹ ảnh nền */
 }
 
@@ -122,7 +122,7 @@ body.dark-mode {
     color: #ba1a1a;
 }
 .dark-mode #board {
-     background-image: url('../asset/Images/anhcoco1.jpg');
+     background-image: url('../Images/anhcoco1.jpg');
     
 }
 
