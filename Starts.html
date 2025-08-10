@@ -247,19 +247,22 @@ body.dark-mode {
             cell.textContent = currentPlayer;
             cell.classList.add(currentPlayer.toLowerCase());
             
+            const playerJustPlayed = currentPlayer; // lưu lại
+
             // Kiểm tra thắng thua
+            if(gameMode === 'human'){
             if (checkWin()) {
                 setTimeout(() => {
-                    alert(`Người chơi ${currentPlayer} thắng!`);
+                    alert(`Người chơi ${playerJustPlayed} thắng!`);
                     gameActive = false;
                 }, 100);
-            } else if (checkDraw()) {
+                } else if (checkDraw()) {
                 setTimeout(() => {
                     alert("Hòa!");
                     gameActive = false;
                 }, 100);
                 }
-            
+            }
             // Đổi lượt
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             
@@ -419,17 +422,17 @@ body.dark-mode {
             return false;
         }
         // Hàm kiểm tra hòa
-function checkDraw() {
-    const cells = document.querySelectorAll('.cell');
-    // Nếu còn ô trống -> chưa hòa
-    for (let cell of cells) {
-        if (cell.textContent === '') {
-            return false;
+        function checkDraw() {
+        const cells = document.querySelectorAll('.cell');
+        // Nếu còn ô trống -> chưa hòa
+        for (let cell of cells) {
+            if (cell.textContent === '') {
+                return false;
+            }
         }
+        // Nếu đầy nhưng không có ai thắng
+        return !checkWin();
     }
-    // Nếu đầy nhưng không có ai thắng
-    return !checkWin();
-}
         // Gán mặc định là dark-mode
             document.body.classList.add('dark-mode');
 
