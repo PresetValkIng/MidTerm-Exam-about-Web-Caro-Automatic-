@@ -53,7 +53,7 @@
 
     <!-- Thêm thông báo chờ -->
     <div id="waitingMessage" class="waiting-message"></div>
-
+    <script src="asset/javascript/kho.js"></script>
     <script>
         // Lấy thông tin từ localStorage
         const gameSettings = JSON.parse(localStorage.getItem('gameSettings'));
@@ -253,7 +253,7 @@
             if (computerDifficulty === 'easy') {
                 computerMoveEasy(); // hàm AI dễ
             } else if (computerDifficulty === 'hard') {
-                aiHardMove(); // hàm AI khó
+                computerMoveHard(); // hàm AI khó
             } else {
                 console.warn("Chưa chọn độ khó, AI mặc định là easy");
                 computerMoveEasy();
@@ -379,5 +379,6 @@
             });
         });
     </script>
+    
 </body>
 </html>
