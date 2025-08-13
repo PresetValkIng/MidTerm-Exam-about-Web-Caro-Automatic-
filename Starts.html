@@ -53,7 +53,7 @@
 
     <!-- Thêm thông báo chờ -->
     <div id="waitingMessage" class="waiting-message"></div>
-    <script src="asset/javascript/kho.js"></script>
+    
     <script>
         // Lấy thông tin từ localStorage
         const gameSettings = JSON.parse(localStorage.getItem('gameSettings'));
@@ -253,7 +253,7 @@
             if (computerDifficulty === 'easy') {
                 computerMoveEasy(); // hàm AI dễ
             } else if (computerDifficulty === 'hard') {
-                computerMoveHard(); // hàm AI khó
+                aiHardMove(); // hàm AI khó
             } else {
                 console.warn("Chưa chọn độ khó, AI mặc định là easy");
                 computerMoveEasy();
@@ -286,7 +286,7 @@
             }
         }
 
-        // Máy đánh
+        // Máy đánh dễ
         function computerMoveEasy() {
             if (!gameActive) return;
             
@@ -339,7 +339,7 @@
                 }, 100);
             }
         }
-         
+
         // Gán mặc định là dark-mode
         document.body.classList.add('dark-mode');
 
@@ -379,6 +379,7 @@
             });
         });
     </script>
-    
+    <script src="asset/javascript/difficult.js"></script>
+
 </body>
 </html>
