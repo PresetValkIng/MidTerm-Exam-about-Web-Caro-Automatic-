@@ -53,7 +53,7 @@
 
     <!-- Thêm thông báo chờ -->
     <div id="waitingMessage" class="waiting-message"></div>
-
+    
     <script>
         // Lấy thông tin từ localStorage
         const gameSettings = JSON.parse(localStorage.getItem('gameSettings'));
@@ -256,10 +256,9 @@
                 aiHardMove(); // hàm AI khó
             } else {
                 console.warn("Chưa chọn độ khó, AI mặc định là easy");
-                aiEasyMove();
+                computerMoveEasy();
             }
         }
-
         // Xử lý khi click vào ô
         function handleCellClick(cell, player) {
             if (!gameActive || cell.textContent !== '') return;
@@ -381,5 +380,6 @@
         });
     </script>
     <script src="asset/javascript/difficult.js"></script>
+
 </body>
 </html>
