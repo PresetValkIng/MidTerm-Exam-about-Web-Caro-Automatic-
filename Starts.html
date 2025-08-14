@@ -241,9 +241,12 @@
                         }
                         if (win) 
                         {
+                            if (gameMode==="computer")
+                        {
                             localStorage.setItem('lastWinner', gameSettings.player);
                             localStorage.setItem('winPoints',( gameMode === 'computer' && computerDifficulty==="easy" ) ? '1' : '2');
-                            return true;
+                        }  
+                        return true;
                         }
                     }
                     
@@ -258,8 +261,11 @@
                         }
                         if (win) 
                         {
+                             if (gameMode==="computer")
+                        {
                             localStorage.setItem('lastWinner', gameSettings.player);
                             localStorage.setItem('winPoints',( gameMode === 'computer' && computerDifficulty==="easy" ) ? '1' : '2');
+                        }  
                             return true;
                         }
                     }
@@ -275,8 +281,11 @@
                         }
                         if (win) 
                         {
+                             if (gameMode==="computer")
+                        {
                             localStorage.setItem('lastWinner', gameSettings.player);
                             localStorage.setItem('winPoints',( gameMode === 'computer' && computerDifficulty==="easy" ) ? '1' : '2');
+                        }  
                             return true;
                         }
                     }
@@ -292,8 +301,11 @@
                         }
                         if (win) 
                         {
+                             if (gameMode==="computer")
+                        {
                             localStorage.setItem('lastWinner', gameSettings.player);
                             localStorage.setItem('winPoints',( gameMode === 'computer' && computerDifficulty==="easy" ) ? '1' : '2');
+                        }  
                             return true;
                         }
                     }

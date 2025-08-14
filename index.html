@@ -48,7 +48,7 @@
     </div>
     
     <div class="leaderboard">
-        <h2>Bảng Xếp Hạng 🏆</h2>
+        <h2>Bảng Xếp Hạng Chế Độ Máy 🏆</h2>
         <ol id="leaderboardList"></ol>
     </div>
     <script>
@@ -107,8 +107,11 @@
 
 
         // Hiển thị bảng xếp hạng
-        function displayLeaderboard() {
+
+     
            
+
+        function displayLeaderboard() { 
             leaderboardList.innerHTML = '';
             players.forEach((player, index) => {
                 const li = document.createElement('li');
