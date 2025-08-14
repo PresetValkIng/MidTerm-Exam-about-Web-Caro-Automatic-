@@ -195,7 +195,12 @@
                                 break;
                             }
                         }
-                        if (win) return true;
+                        if (win) 
+                        {
+                            localStorage.setItem('lastWinner', gameSettings.player);
+                            localStorage.setItem('winPoints',( gameMode === 'computer' && computerDifficulty==="easy" ) ? '1' : '2');
+                            return true;
+                        }
                     }
                     
                     // Kiểm tra hàng dọc
@@ -207,7 +212,12 @@
                                 break;
                             }
                         }
-                        if (win) return true;
+                        if (win) 
+                        {
+                            localStorage.setItem('lastWinner', gameSettings.player);
+                            localStorage.setItem('winPoints',( gameMode === 'computer' && computerDifficulty==="easy" ) ? '1' : '2');
+                            return true;
+                        }
                     }
                     
                     // Kiểm tra chéo phải
@@ -219,7 +229,12 @@
                                 break;
                             }
                         }
-                        if (win) return true;
+                        if (win) 
+                        {
+                            localStorage.setItem('lastWinner', gameSettings.player);
+                            localStorage.setItem('winPoints',( gameMode === 'computer' && computerDifficulty==="easy" ) ? '1' : '2');
+                            return true;
+                        }
                     }
                     
                     // Kiểm tra chéo trái
@@ -231,7 +246,12 @@
                                 break;
                             }
                         }
-                        if (win) return true;
+                        if (win) 
+                        {
+                            localStorage.setItem('lastWinner', gameSettings.player);
+                            localStorage.setItem('winPoints',( gameMode === 'computer' && computerDifficulty==="easy" ) ? '1' : '2');
+                            return true;
+                        }
                     }
                 }
             }
