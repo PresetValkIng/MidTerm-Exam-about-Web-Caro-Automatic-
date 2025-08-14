@@ -108,9 +108,7 @@
 
         // Hiển thị bảng xếp hạng
         function displayLeaderboard() {
-            leaderboardList.style.textAlign = 'center';
-            leaderboardList.style.listStylePosition = 'inside';  
-            leaderboardList.style.marginRight = '30px'; 
+           
             leaderboardList.innerHTML = '';
             players.forEach((player, index) => {
                 const li = document.createElement('li');
