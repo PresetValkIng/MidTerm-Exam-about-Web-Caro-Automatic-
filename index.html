@@ -127,7 +127,37 @@
             li.textContent = ` ${topPlayer.name} - ${topPlayer.score} điểm`;
             leaderboardList.appendChild(li);
         }
+       function displayLeaderboard() {
+    leaderboardList.innerHTML = '';
+    if (players.length === 0) {
+        // Hiển thị thông báo khi không có người chơi
+        const noPlayersMsg = document.createElement('li');
+        noPlayersMsg.textContent = 'Chưa có người chơi nào';
+        noPlayersMsg.className = 'no-players';
+        leaderboardList.appendChild(noPlayersMsg);
+        return;
+    }
+
+    // Sắp xếp người chơi theo điểm số giảm dần
+    const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
+    
+    // Lấy tối đa 10 người chơi đầu tiên
+    const top10Players = sortedPlayers.slice(0, 10);
+    
+    // Hiển thị từng người chơi
+    top10Players.forEach((player, index) => {
+        const li = document.createElement('li');
+        const rank = index + 1;
         
+        // Tạo nội dung hiển thị
+        li.innerHTML = `
+            <span class="name">${player.name}</span>
+            <span class="score">${player.score} điểm</span>
+        `;
+        
+        leaderboardList.appendChild(li);
+    });
+}
         // Xử lý mở/đóng panel tùy chọn
         optionsBtn.addEventListener('click', () => panel.style.display = 'block');
         closeBtn.addEventListener('click', () => panel.style.display = 'none');
