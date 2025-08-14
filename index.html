@@ -103,12 +103,15 @@
     // Chuyển hướng sang trang Starts.html
     window.location.href = 'Starts.html';
 });
+
+
+
         // Hiển thị bảng xếp hạng
-function displayLeaderboard() {
+        function displayLeaderboard() {
             leaderboardList.innerHTML = '';
             players.forEach((player, index) => {
                 const li = document.createElement('li');
-                li.textContent = `${index + 1}. ${player.name} - ${player.score} điểm`;
+                li.textContent = ` ${player.name} - ${player.score} điểm`;
                 leaderboardList.appendChild(li);
             });
         }
@@ -124,7 +127,6 @@ function displayLeaderboard() {
             }
         });
     </script>
-     
- <script src="asset/javascript/taobanco.js"></script>
+    
 </body>
 </html>

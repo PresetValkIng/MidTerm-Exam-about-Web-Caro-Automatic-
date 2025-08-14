@@ -151,36 +151,3 @@ function aiHardMove() {
         }, 100);
     }
 }
-
-        // Máy đánh dễ
-        function computerMoveEasy() {
-            if (!gameActive) return;
-            
-            const cells = document.querySelectorAll('.cell');
-            const size = boardSize;
-            let emptyCells = [];
-            
-            // Ưu tiên đánh gần các quân X
-            let candidateCells = [];
-            
-            // Tìm tất cả ô trống
-            cells.forEach((cell, index) => {
-                if (!cell.textContent) {
-                    emptyCells.push(cell);
-                    
-                    // Kiểm tra xung quanh các quân X
-                    const row = Math.floor(index / size);
-                    const col = index % size;
-                    
-                    for (let i = Math.max(0, row-1); i <= Math.min(size-1, row+1); i++) {
-                        for (let j = Math.max(0, col-1); j <= Math.min(size-1, col+1); j++) {
-                            const nearIndex = i * size + j;
-                            if (cells[nearIndex].textContent === 'X') {
-                                candidateCells.push(cell);
-                                break;
-                            }
-                        }
-                    }
-                }
-            });
-        }

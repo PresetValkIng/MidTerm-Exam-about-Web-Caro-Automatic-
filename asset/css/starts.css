@@ -1,13 +1,12 @@
 @charset    "urf-8";
         
- 
-.game-header {
+ .game-header {
             text-align: center;
             margin-bottom: 15px;
             font-size: 15px;
             color: rgb(255, 255, 255);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
+}
 h1 {
     color: red;
     text-align: center;
@@ -57,20 +56,20 @@ h1 {
 }
 
         
-        .dark-mode .cell.x {
+.dark-mode .cell.x {
             color: #ef1313;
         }
         
-        .dark-mode .cell.o {
+.dark-mode .cell.o {
             color: #3fe780;
         }
-        .light-mode .cell.x{
+.light-mode .cell.x{
             color: #dc610f;
         }
-        .light-mode .cell.o {
+.light-mode .cell.o {
             color: #d1ea14;
         }
-        .controls {
+.controls {
             margin-top: 20px;
             display: flex;
             gap: 10px;
@@ -78,7 +77,7 @@ h1 {
             flex-wrap: wrap;
         }
         
-    button {
+button {
             padding: 8px 16px;
             background-color: #4285F4;
             color: white;
@@ -87,12 +86,12 @@ h1 {
             cursor: pointer;
             font-size: 14px;
             transition: all 0.2s;
-        }
+}
         
 button:hover {
-            background-color: #3367D6;
-            transform: translateY(-2px);
-        }
+    background-color: #3367D6;
+    transform: translateY(-2px);
+}
         
 .player-info {
             font-size: 18px;
@@ -161,21 +160,21 @@ body.dark-mode {
     color: #eee;
 }
         
-        @media (max-width: 600px) {
-            .cell {
-                font-size: 18px;
-            }
+@media (max-width: 600px) {
+.cell {
+    font-size: 18px;
+}
             
-            .controls {
-                flex-direction: column;
-                align-items: center;
-            }
+.controls {
+    flex-direction: column;
+    align-items: center;
+}
             
-            button {
-                width: 100%;
-                max-width: 200px;
-            }
-        }
+button {
+    width: 100%;
+    max-width: 200px;
+}
+}
 .square {
     text-align: center;
     margin: 10px auto;
@@ -197,7 +196,7 @@ body.dark-mode {
           width: 300px;
           max-width: 90%;
           text-align: center;
-      }
+}
 button {
     align-items: center;
 }

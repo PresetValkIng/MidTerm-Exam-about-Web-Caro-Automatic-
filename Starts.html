@@ -32,7 +32,7 @@
          <p><strong>X</strong> : Chuột phải  - <strong>O</strong>: Chuột trái  </p>
     </div>
 </div>
-    <div class="options-panel" id="optionsPanel" style="display: none;">
+    <div class="options-panel" id="optionsPanel" style="display: none;" >
         <h2>Chọn độ khó</h2>
         <select id="computerMode">
            <option value="" selected disabled >Chọn chế độ</option>
@@ -85,7 +85,7 @@
         playerInfo.textContent = `${playerName} - Chế độ: ${gameMode === 'human' ? '2 người' : 'Máy'} - Bàn cờ: ${boardSize}x${boardSize}`;
 
         // Hàm hiển thị thông báo chờ
-function showWaitingMessage(player) {
+        function showWaitingMessage(player) {
             const msg = document.getElementById('waitingMessage');
             msg.textContent = `Chờ ${player === 'X' ? 'O (chuột trái)' : 'X (chuột phải)'} đánh!`;
             msg.style.display = 'block';
@@ -100,7 +100,7 @@ function showWaitingMessage(player) {
          }
 
         // Hàm tạo bàn cờ với kích thước linh hoạt
-function createBoard() {
+        function createBoard() {
             board.innerHTML = '';
             
             // Thiết lập grid
@@ -171,7 +171,7 @@ function createBoard() {
         }
 
         // Kiểm tra thắng thua 
- function checkWin() {
+        function checkWin() {
             const cells = document.querySelectorAll('.cell');
             const size = boardSize;
             
@@ -240,7 +240,7 @@ function createBoard() {
         }
 
         // Hàm kiểm tra hòa /
- function checkDraw() {
+        function checkDraw() {
             const cells = document.querySelectorAll('.cell');
             for (let cell of cells) {
                 if (cell.textContent === '') {
@@ -249,7 +249,7 @@ function createBoard() {
             }
             return !checkWin();
         }
-function computerMove() {
+        function computerMove() {
             if (computerDifficulty === 'easy') {
                 computerMoveEasy(); // hàm AI dễ
             } else if (computerDifficulty === 'hard') {
@@ -260,7 +260,7 @@ function computerMove() {
             }
         }
         // Xử lý khi click vào ô
-function handleCellClick(cell, player) {
+        function handleCellClick(cell, player) {
             if (!gameActive || cell.textContent !== '') return;
             
             cell.textContent = player;
@@ -287,7 +287,7 @@ function handleCellClick(cell, player) {
         }
 
         // Máy đánh dễ
-function computerMoveEasy() {
+        function computerMoveEasy() {
             if (!gameActive) return;
             
             const cells = document.querySelectorAll('.cell');
