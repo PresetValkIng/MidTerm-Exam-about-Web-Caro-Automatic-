@@ -28,7 +28,7 @@
     <h1>CARO TAM THÁI TỬ</h1>
    <div class="game-header">
     <div class="player-info" id="playerInfo"></div>
-    <div class="game-instruction">
+    <div class="game-instruction" style=" margin: 5px 0;">
          <p><strong>X</strong> : Chuột phải  - <strong>O</strong>: Chuột trái  </p>
     </div>
 </div>
@@ -41,6 +41,13 @@
         </select>
         <button id="checkEH">Xác nhận</button>
     </div>
+<!-- Player 2 -->
+<div id="player2Input" style="display: none; margin: 5px 0;">
+    <label for="player2Name">Player 2 - O </label>
+    <input type="text" id="player2Name" placeholder="Nhập player 2">
+    <button id="startGameBtn">Bắt đầu</button>
+</div>
+
 
     <div class="game-container">
         <div id="board"></div>
@@ -54,6 +61,10 @@
     <!-- Thêm thông báo chờ -->
     <div id="waitingMessage" class="waiting-message"></div>
     
+
+
+
+                                 <!-- JAVASCIPT-->>
     <script>
         // Lấy thông tin từ localStorage
         const gameSettings = JSON.parse(localStorage.getItem('gameSettings'));
@@ -67,8 +78,7 @@
         let lastPlayer = null; // Thêm biến theo dõi người chơi cuối cùng
         const board = document.getElementById('board');
         const playerInfo = document.getElementById('playerInfo');
-        
-         let computerDifficulty = null; // lưu chế độ chơi
+        let computerDifficulty = null; // lưu chế độ chơi
         document.getElementById('checkEH').addEventListener('click', () => {
             const mode = document.getElementById('computerMode').value;
             if (!mode) {
@@ -80,10 +90,44 @@
         });
 
         // Hiển thị thông tin người chơi
-        playerInfo.textContent = `${playerName} - Chế độ: ${gameMode === 'human' ? '2 người' : 'Máy'}`;
-        
         playerInfo.textContent = `${playerName} - Chế độ: ${gameMode === 'human' ? '2 người' : 'Máy'} - Bàn cờ: ${boardSize}x${boardSize}`;
 
+        //DANH DANG CHECK PLAYER @PresetValkIng
+
+        // Thêm vào phần khai báo biến
+    let player2Name = "Người chơi 2";
+    let scores = {player1: 0, player2: 0};
+
+        // Thêm vào phần khởi tạo game (sau khi lấy gameSettings)
+        if (gameMode === 'human') {
+            document.getElementById('player2Input').style.display = 'block';
+            document.getElementById('startGameBtn').addEventListener('click', startTwoPlayerGame);
+        } else {
+            document.getElementById('player2Input').style.display = 'none';
+        }
+
+// Thêm hàm bắt đầu game 2 người
+        function startTwoPlayerGame() {
+    const input = document.getElementById('player2Name').value.trim();
+    if (input) {
+        player2Name = input;
+        document.getElementById('player2Input').style.display = 'none';
+        updatePlayerInfo();
+        createBoard();
+
+    } else {
+        alert("Vui lòng nhập tên người chơi thứ 2!");
+    }
+}
+// Cập nhật hiển thị thông tin người chơi
+        function updatePlayerInfo() {
+    if (gameMode === 'human') {
+        playerInfo.textContent = `${playerName} (X) - ${player2Name} (O) | ${scores.player1}-${scores.player2}`;
+    } else {
+        playerInfo.textContent = `${playerName} - Chế độ: Máy - Bàn cờ: ${boardSize}x${boardSize}`;
+    }
+}
+      
         // Hàm hiển thị thông báo chờ
         function showWaitingMessage(player) {
             const msg = document.getElementById('waitingMessage');
@@ -195,7 +239,12 @@
                                 break;
                             }
                         }
-                        if (win) return true;
+                        if (win) 
+                        {
+                            localStorage.setItem('lastWinner', gameSettings.player);
+                            localStorage.setItem('winPoints',( gameMode === 'computer' && computerDifficulty==="easy" ) ? '1' : '2');
+                            return true;
+                        }
                     }
                     
                     // Kiểm tra hàng dọc
@@ -207,7 +256,12 @@
                                 break;
                             }
                         }
-                        if (win) return true;
+                        if (win) 
+                        {
+                            localStorage.setItem('lastWinner', gameSettings.player);
+                            localStorage.setItem('winPoints',( gameMode === 'computer' && computerDifficulty==="easy" ) ? '1' : '2');
+                            return true;
+                        }
                     }
                     
                     // Kiểm tra chéo phải
@@ -219,7 +273,12 @@
                                 break;
                             }
                         }
-                        if (win) return true;
+                        if (win) 
+                        {
+                            localStorage.setItem('lastWinner', gameSettings.player);
+                            localStorage.setItem('winPoints',( gameMode === 'computer' && computerDifficulty==="easy" ) ? '1' : '2');
+                            return true;
+                        }
                     }
                     
                     // Kiểm tra chéo trái
@@ -231,7 +290,12 @@
                                 break;
                             }
                         }
-                        if (win) return true;
+                        if (win) 
+                        {
+                            localStorage.setItem('lastWinner', gameSettings.player);
+                            localStorage.setItem('winPoints',( gameMode === 'computer' && computerDifficulty==="easy" ) ? '1' : '2');
+                            return true;
+                        }
                     }
                 }
             }
@@ -260,31 +324,44 @@
             }
         }
         // Xử lý khi click vào ô
-        function handleCellClick(cell, player) {
-            if (!gameActive || cell.textContent !== '') return;
+      function handleCellClick(cell, player) {
+    if (!gameActive || cell.textContent !== '') return;
+    
+    cell.textContent = player;
+    cell.classList.add(player.toLowerCase());
+    
+    if (checkWin()) {
+        setTimeout(() => {
+            const winnerName = player === 'X' ? playerName : player2Name;
+            alert(`${winnerName} thắng!`);
             
-            cell.textContent = player;
-            cell.classList.add(player.toLowerCase());
-            
-            if (checkWin()) {
-                setTimeout(() => {
-                    alert(`Người chơi ${player} thắng!`);
-                    gameActive = false;
-                }, 100);
-                return;
-            } else if (checkDraw()) {
-                setTimeout(() => {
-                    alert("Hòa!");
-                    gameActive = false;
-                }, 100);
-                return;
+            // Cập nhật điểm
+            if (player === 'X') {
+                scores.player1++;
+            } else {
+                scores.player2++;
             }
             
-            // Nếu chơi với máy và vừa đánh X
-            if (gameMode === 'computer' && player === 'X') {
-                computerMove();
-            }
-        }
+            // Lưu điểm vào localStorage
+            localStorage.setItem('caroScores', JSON.stringify(scores));
+            
+            updatePlayerInfo();
+            gameActive = false;
+        }, 100);
+        return;
+    } else if (checkDraw()) {
+        setTimeout(() => {
+            alert("Hòa!");
+            gameActive = false;
+        }, 100);
+        return;
+    }
+    
+    if (gameMode === 'computer' && player === 'X') {
+        computerMove();
+    }
+}
+
 
         // Máy đánh dễ
         function computerMoveEasy() {

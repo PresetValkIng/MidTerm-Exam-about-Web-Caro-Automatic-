@@ -108,12 +108,24 @@
 
         // Hiển thị bảng xếp hạng
         function displayLeaderboard() {
+            leaderboardList.style.textAlign = 'center';
+            leaderboardList.style.listStylePosition = 'inside';  
+            leaderboardList.style.marginRight = '30px'; 
             leaderboardList.innerHTML = '';
             players.forEach((player, index) => {
                 const li = document.createElement('li');
                 li.textContent = ` ${player.name} - ${player.score} điểm`;
+              
                 leaderboardList.appendChild(li);
             });
+            if (players.length === 0) return; // Không hiển thị nếu không có người chơi
+            // Sắp xếp người chơi theo điểm số giảm dần
+            const sortedPlayers = players.sort((a, b) => b.score - a.score);
+            // Chỉ lấy người chơi đầu tiên (điểm cao nhất)
+            const topPlayer = sortedPlayers[0];
+            const li = document.createElement('li');
+            li.textContent = ` ${topPlayer.name} - ${topPlayer.score} điểm`;
+            leaderboardList.appendChild(li);
         }
         
         // Xử lý mở/đóng panel tùy chọn
@@ -126,6 +138,26 @@
                 panel.style.display = 'none';   
             }
         });
+
+        // Hàm tính và cập nhật điểm cho bảng xếp hạng
+        function updatePlayerScore(name, increment) {
+            let players = JSON.parse(localStorage.getItem('caroPlayers')) || [];
+            const player = players.find(p => p.name.toLowerCase() === name.toLowerCase());
+            if (player) {
+                player.score += increment;
+                localStorage.setItem('caroPlayers', JSON.stringify(players));
+            }
+            displayLeaderboard(); // Cập nhật hiển thị leaderboard ngay lập tức
+        }
+
+        // Kiểm tra nếu có chiến thắng từ trò chơi trước và cập nhật điểm (chạy khi tải trang)
+        let lastWinner = localStorage.getItem('lastWinner');
+        if (lastWinner) {
+            let points = parseInt(localStorage.getItem('winPoints')) || 1;
+            updatePlayerScore(lastWinner, points);
+            localStorage.removeItem('lastWinner');
+            localStorage.removeItem('winPoints');
+        }
     </script>
     
 </body>
