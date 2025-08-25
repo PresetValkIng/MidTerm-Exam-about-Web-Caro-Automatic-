@@ -104,30 +104,7 @@
     window.location.href = 'Starts.html';
 });
 
-
-
         // Hiển thị bảng xếp hạng
-
-     
-           
-
-        function displayLeaderboard() { 
-            leaderboardList.innerHTML = '';
-            players.forEach((player, index) => {
-                const li = document.createElement('li');
-                li.textContent = ` ${player.name} - ${player.score} điểm`;
-              
-                leaderboardList.appendChild(li);
-            });
-            if (players.length === 0) return; // Không hiển thị nếu không có người chơi
-            // Sắp xếp người chơi theo điểm số giảm dần
-            const sortedPlayers = players.sort((a, b) => b.score - a.score);
-            // Chỉ lấy người chơi đầu tiên (điểm cao nhất)
-            const topPlayer = sortedPlayers[0];
-            const li = document.createElement('li');
-            li.textContent = ` ${topPlayer.name} - ${topPlayer.score} điểm`;
-            leaderboardList.appendChild(li);
-        }
        function displayLeaderboard() {
     leaderboardList.innerHTML = '';
     if (players.length === 0) {
@@ -190,6 +167,6 @@
             localStorage.removeItem('winPoints');
         }
     </script>
-    
+        
 </body>
 </html>
